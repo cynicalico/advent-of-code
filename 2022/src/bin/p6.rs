@@ -21,7 +21,7 @@ fn find_unique_character_seq(s: &Vec<char>, seq_len: usize) -> usize {
             return i + seq_len;
         }
     }
-    unreachable!()
+    unreachable!("Input is guaranteed good by nature of being a coding challenge")
 }
 
 fn has_duplicates(s: &[char]) -> bool {
