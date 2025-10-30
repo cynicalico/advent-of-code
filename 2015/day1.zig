@@ -24,12 +24,8 @@ pub fn main() !void {
 
         for (input_buffer[0..bytes_read]) |c| {
             switch (c) {
-                '(' => {
-                    p1_ans += 1;
-                },
-                ')' => {
-                    p1_ans -= 1;
-                },
+                '(' => p1_ans += 1,
+                ')' => p1_ans -= 1,
                 else => unreachable,
             }
 
