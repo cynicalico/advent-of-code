@@ -2,39 +2,34 @@
 // https://adventofcode.com/2015/day/1
 
 const std = @import("std");
+const helpers = @import("helpers.zig");
 
 var stdout_buffer: [1024]u8 = undefined;
-var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
-const stdout = &stdout_writer.interface;
 
 pub fn main() !void {
-    const cwd = std.fs.cwd();
-    var input = try cwd.openFile("input/1_1.txt", .{});
-    defer input.close();
+    var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
+    const stdout = &stdout_writer.interface;
 
     var p1_ans: i32 = 0;
     var p2_ans: usize = 0;
     var seeking_basement: bool = true;
 
-    var input_buffer: [1024]u8 = undefined;
-    var bytes_read: usize = undefined;
-    while (true) {
-        bytes_read = try input.read(&input_buffer);
-        if (bytes_read == 0) break;
+    var file = try std.fs.cwd().openFile("input/1_1.txt", .{});
+    defer file.close();
 
-        for (input_buffer[0..bytes_read]) |c| {
-            switch (c) {
-                '(' => p1_ans += 1,
-                ')' => p1_ans -= 1,
-                else => unreachable,
-            }
+    var buffer: [1024]u8 = undefined;
+    var iterator = helpers.FileCharIterator.init(file, &buffer);
 
-            if (seeking_basement) {
-                p2_ans += 1;
-                if (p1_ans < 0) {
-                    seeking_basement = false;
-                }
-            }
+    while (try iterator.next()) |c| {
+        switch (c) {
+            '(' => p1_ans += 1,
+            ')' => p1_ans -= 1,
+            else => unreachable,
+        }
+
+        if (seeking_basement) {
+            p2_ans += 1;
+            seeking_basement = p1_ans >= 0;
         }
     }
 
