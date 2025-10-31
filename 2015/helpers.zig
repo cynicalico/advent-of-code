@@ -51,6 +51,10 @@ pub fn UnsignedIterator(comptime T: type) type {
         input: []u8,
         index: usize = 0,
 
+        pub fn init(input: []u8) UnsignedIterator(T) {
+            return .{ .input = input };
+        }
+
         pub fn next(self: *UnsignedIterator(T)) ?T {
             while (self.index < self.input.len and !std.ascii.isDigit(self.input[self.index])) : (self.index += 1) {}
             if (self.index >= self.input.len) return null;

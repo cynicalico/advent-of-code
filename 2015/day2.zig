@@ -20,7 +20,7 @@ pub fn main() !void {
     var iterator = helpers.FileLineIterator.init(input, &buffer);
 
     while (try iterator.next()) |line| {
-        var i = helpers.UnsignedIterator(u32){ .input = line };
+        var i = helpers.UnsignedIterator(u32).init(line);
         const l = i.next() orelse unreachable;
         const w = i.next() orelse unreachable;
         const h = i.next() orelse unreachable;
