@@ -37,19 +37,14 @@ pub fn main() !void {
         std.crypto.hash.Md5.hash(buffer[0 .. prefix_len + n_len], md5_result[0..], .{});
 
         if (p1_ans == 0 and
-            md5_result[0] >> 4 == 0 and
-            md5_result[0] & 0xf == 0 and
-            md5_result[1] >> 4 == 0 and
-            md5_result[1] & 0xf == 0 and
+            md5_result[0] == 0 and
+            md5_result[1] == 0 and
             md5_result[2] >> 4 == 0)
             p1_ans = candidate;
 
-        if (md5_result[0] >> 4 == 0 and
-            md5_result[0] & 0xf == 0 and
-            md5_result[1] >> 4 == 0 and
-            md5_result[1] & 0xf == 0 and
-            md5_result[2] >> 4 == 0 and
-            md5_result[2] & 0xf == 0)
+        if (md5_result[0] == 0 and
+            md5_result[1] == 0 and
+            md5_result[2] == 0)
             p2_ans = candidate;
 
         if (p1_ans != 0 and p2_ans != 0) break;
