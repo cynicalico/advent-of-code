@@ -11,4 +11,4 @@ T mod(T a, T b) {
     if (std::signbit(m) != std::signbit(b)) m += b;
     return m;
 }
-} // namespace aoc2025::helpers
+} // namespace aoc2025::utils
