@@ -10,6 +10,23 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-add_executable(day1 day1.cpp)
+add_library(aoc2025)
+target_compile_features(aoc2025 PRIVATE cxx_std_23)
+target_sources(aoc2025
+        PRIVATE
+        "helpers/io.cpp"
+        "helpers/math.cpp"
+
+        PUBLIC
+        FILE_SET HEADERS
+        FILES
+        "helpers/base.hpp"
+        "helpers/io.hpp"
+        "helpers/math.hpp"
+        "helpers/print.hpp"
+        "helpers/std.hpp"
+)
+
+add_executable(day1 solutions/day1.cpp)
 target_compile_features(day1 PRIVATE cxx_std_23)
-target_link_libraries(day1 PRIVATE fmt::fmt)
+target_link_libraries(day1 PRIVATE aoc2025 fmt::fmt)
