@@ -1,3 +1,7 @@
+/* Day 2: Gift Shop
+ * https://adventofcode.com/2025/day/2
+ */
+
 #include "helpers/base.hpp"
 
 SOLUTION(2025, 02, (std::vector<std::tuple<std::uint64_t, std::uint64_t>>), (std::uint64_t), (std::uint64_t))
