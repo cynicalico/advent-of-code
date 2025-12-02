@@ -9,7 +9,7 @@ SOLUTION(2025, 01, (std::vector<int>), (int), (int))
 std::vector<int> aoc2025::day01::parse_input_file() {
     std::vector<int> rotations;
     for (const auto &line : utils::iterate_file_lines(INPUT_FILENAME)) {
-        const auto amount = std::strtol(line.c_str() + 1, nullptr, 10);
+        const auto amount = utils::parse<int>(line);
         rotations.emplace_back(line[0] == 'L' ? -amount : amount);
     }
     return rotations;
