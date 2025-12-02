@@ -13,7 +13,7 @@ static constexpr auto P2_PAT = ctll::fixed_string(R"((\d+)\1+)");
 std::vector<std::tuple<std::uint64_t, std::uint64_t>> aoc2025::day02::parse_input_file() {
     std::vector<std::tuple<std::uint64_t, std::uint64_t>> ranges;
     for (const auto &[whole, start, end] : utils::iterate_file_regex<INPUT_PAT>(INPUT_FILENAME))
-        ranges.emplace_back(utils::parse_unsigned<std::uint64_t>(start), utils::parse_unsigned<std::uint64_t>(end));
+        ranges.emplace_back(utils::parse<std::uint64_t>(start), utils::parse<std::uint64_t>(end));
     return ranges;
 }
 

@@ -8,7 +8,7 @@ SOLUTION(2025, 01, (std::vector<int>), (int), (int))
 
 std::vector<int> aoc2025::day01::parse_input_file() {
     std::vector<int> rotations;
-    for (const auto &line : helpers::iterate_file_lines(INPUT_FILENAME)) {
+    for (const auto &line : utils::iterate_file_lines(INPUT_FILENAME)) {
         const auto amount = std::strtol(line.c_str() + 1, nullptr, 10);
         rotations.emplace_back(line[0] == 'L' ? -amount : amount);
     }
@@ -19,7 +19,7 @@ int aoc2025::day01::p1(const std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
-        position = helpers::mod(position + amount, 100);
+        position = utils::mod(position + amount, 100);
         if (position == 0) ans++;
     }
     return ans;
@@ -30,7 +30,7 @@ int aoc2025::day01::p2(const std::vector<int> &input) {
     int position = 50;
     for (const auto amount : input) {
         const int prev_position = position;
-        position = helpers::mod(position + amount, 100);
+        position = utils::mod(position + amount, 100);
         ans += std::abs(amount) / 100;
         if (const bool crossed_zero = amount < 0 ? prev_position < position : prev_position > position;
             position != 0 && prev_position != 0 && crossed_zero)

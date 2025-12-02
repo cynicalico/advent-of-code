@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ctre.hpp"
+#include "parse.hpp"
+
 #include <filesystem>
 #include <generator>
 #include <ranges>
@@ -17,5 +19,11 @@ std::generator<const std::ranges::range_value_t<decltype(ctre::search_all<P>(std
 iterate_file_regex(const std::filesystem::path &path) {
     for (const std::string input = read_file(path); const auto match : ctre::search_all<P>(input))
         co_yield match;
+}
+
+template <typename T>
+std::generator<T> iterate_file_integers(const std::filesystem::path &path) {
+    for (const std::string input = read_file(path); const auto integer : iterate_parse<T>(input))
+        co_yield integer;
 }
 } // namespace aoc2025::utils
