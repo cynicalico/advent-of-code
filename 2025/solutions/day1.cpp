@@ -1,10 +1,10 @@
 #include "helpers/base.hpp"
 
-SOLUTION(aoc2025::day1, std::vector<int>, int, int)
+SOLUTION(aoc2025, 1, (std::vector<int>), (int), (int))
 
 std::vector<int> aoc2025::day1::parse_input_file() {
     std::vector<int> rotations;
-    for (const auto &line : helpers::lines(INPUT_FILENAME)) {
+    for (const auto &line : helpers::iterate_file_lines(INPUT_FILENAME)) {
         const auto amount = std::strtol(line.c_str() + 1, nullptr, 10);
         rotations.emplace_back(line[0] == 'L' ? -amount : amount);
     }
