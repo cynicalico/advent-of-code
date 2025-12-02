@@ -6,7 +6,7 @@ Standard: Latest
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
-ColumnLimit: 120
+ColumnLimit: 80
 AlignAfterOpenBracket: Align
 BinPackParameters: false
 AlignEscapedNewlines: LeftWithLastLine
@@ -18,4 +18,6 @@ AllowShortIfStatementsOnASingleLine: true
 AlignTrailingComments: false
 AllowShortCaseExpressionOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
+BinPackArguments: false
+AlignOperands: AlignAfterOperator
 ...
