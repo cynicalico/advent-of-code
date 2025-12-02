@@ -4,7 +4,7 @@
 #include <concepts>
 #include <string_view>
 
-namespace aoc2025::helpers {
+namespace aoc2025::utils {
 template <typename T>
     requires std::is_integral_v<T> and std::is_unsigned_v<T>
 T parse_unsigned(const std::string_view sv) {

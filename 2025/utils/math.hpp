@@ -3,7 +3,7 @@
 #include <cmath>
 #include <concepts>
 
-namespace aoc2025::helpers {
+namespace aoc2025::utils {
 template <class T>
     requires std::is_integral_v<T>
 T mod(T a, T b) {

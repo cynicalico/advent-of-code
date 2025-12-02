@@ -2,7 +2,7 @@
  * https://adventofcode.com/2025/day/1
  */
 
-#include "helpers/base.hpp"
+#include "utils/base.hpp"
 
 SOLUTION(2025, 01, (std::vector<int>), (int), (int))
 

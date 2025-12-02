@@ -1,15 +1,15 @@
-#include "helpers/io.hpp"
-#include "helpers/print.hpp"
+#include "utils/io.hpp"
+#include "utils/print.hpp"
 #include <fstream>
 
-std::string aoc2025::helpers::read_file(const std::filesystem::path &path) {
+std::string aoc2025::utils::read_file(const std::filesystem::path &path) {
     std::ifstream file(path);
     if (!file.is_open()) throw std::runtime_error(fmt::format("Failed to open file: {}", path));
 
     return {std::istreambuf_iterator(file), {}};
 }
 
-std::generator<std::string> aoc2025::helpers::iterate_file_lines(const std::filesystem::path &path) {
+std::generator<std::string> aoc2025::utils::iterate_file_lines(const std::filesystem::path &path) {
     std::ifstream file(path);
     if (!file.is_open()) throw std::runtime_error(fmt::format("Failed to open file: {}", path));
 

@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace aoc2025::helpers {
+namespace aoc2025::utils {
 std::string read_file(const std::filesystem::path &path);
 
 std::generator<std::string> iterate_file_lines(const std::filesystem::path &path);
@@ -18,4 +18,4 @@ iterate_file_regex(const std::filesystem::path &path) {
     for (const std::string input = read_file(path); const auto match : ctre::search_all<P>(input))
         co_yield match;
 }
-} // namespace aoc2025::helpers
+} // namespace aoc2025::utils

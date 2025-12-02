@@ -21,18 +21,18 @@ add_library(aoc2025)
 target_compile_features(aoc2025 PRIVATE cxx_std_23)
 target_sources(aoc2025
         PRIVATE
-        "helpers/io.cpp"
-        "helpers/math.cpp"
+        "utils/io.cpp"
+        "utils/math.cpp"
 
         PUBLIC
         FILE_SET HEADERS
         FILES
-        "helpers/base.hpp"
-        "helpers/io.hpp"
-        "helpers/math.hpp"
-        "helpers/parse.hpp"
-        "helpers/print.hpp"
-        "helpers/std.hpp"
+        "utils/base.hpp"
+        "utils/io.hpp"
+        "utils/math.hpp"
+        "utils/parse.hpp"
+        "utils/print.hpp"
+        "utils/std.hpp"
 )
 
 target_link_libraries(aoc2025 PUBLIC fmt::fmt ctre)
