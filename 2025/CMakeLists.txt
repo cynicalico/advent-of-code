@@ -30,6 +30,7 @@ target_sources(aoc2025
         "helpers/base.hpp"
         "helpers/io.hpp"
         "helpers/math.hpp"
+        "helpers/parse.hpp"
         "helpers/print.hpp"
         "helpers/std.hpp"
 )

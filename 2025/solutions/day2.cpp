@@ -6,13 +6,14 @@
 
 SOLUTION(2025, 02, (std::vector<std::tuple<std::uint64_t, std::uint64_t>>), (std::uint64_t), (std::uint64_t))
 
+static constexpr auto INPUT_PAT = ctll::fixed_string(R"((\d+)-(\d+),?)");
+static constexpr auto P1_PAT = ctll::fixed_string(R"((\d+)\1)");
+static constexpr auto P2_PAT = ctll::fixed_string(R"((\d+)\1+)");
+
 std::vector<std::tuple<std::uint64_t, std::uint64_t>> aoc2025::day02::parse_input_file() {
-    static constexpr auto input_pat = ctll::fixed_string(R"((\d+)-(\d+),?)");
     std::vector<std::tuple<std::uint64_t, std::uint64_t>> ranges;
-    for (const std::string input = helpers::read_file(INPUT_FILENAME);
-         const auto match : ctre::search_all<input_pat>(input))
-        ranges.emplace_back(std::atoll(std::string_view(match.get<1>()).data()),
-                            std::atoll(std::string_view(match.get<2>()).data()));
+    for (const auto &[whole, start, end] : helpers::iterate_file_regex<INPUT_PAT>(INPUT_FILENAME))
+        ranges.emplace_back(helpers::parse_unsigned<std::uint64_t>(start), helpers::parse_unsigned<std::uint64_t>(end));
     return ranges;
 }
 
@@ -26,11 +27,9 @@ std::uint64_t match_in_range(const std::vector<std::tuple<std::uint64_t, std::ui
 }
 
 std::uint64_t aoc2025::day02::p1(const std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
-    static constexpr auto p1_pat = ctll::fixed_string(R"((\d+)\1)");
-    return match_in_range<p1_pat>(input);
+    return match_in_range<P1_PAT>(input);
 }
 
 std::uint64_t aoc2025::day02::p2(const std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
-    static constexpr auto p2_pat = ctll::fixed_string(R"((\d+)\1+)");
-    return match_in_range<p2_pat>(input);
+    return match_in_range<P2_PAT>(input);
 }
