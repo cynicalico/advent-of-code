@@ -1,8 +1,8 @@
 #include "helpers/base.hpp"
 
-SOLUTION(aoc2025, 1, (std::vector<int>), (int), (int))
+SOLUTION(2025, 01, (std::vector<int>), (int), (int))
 
-std::vector<int> aoc2025::day1::parse_input_file() {
+std::vector<int> aoc2025::day01::parse_input_file() {
     std::vector<int> rotations;
     for (const auto &line : helpers::iterate_file_lines(INPUT_FILENAME)) {
         const auto amount = std::strtol(line.c_str() + 1, nullptr, 10);
@@ -11,7 +11,7 @@ std::vector<int> aoc2025::day1::parse_input_file() {
     return rotations;
 }
 
-int aoc2025::day1::p1(const std::vector<int> &input) {
+int aoc2025::day01::p1(const std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -21,7 +21,7 @@ int aoc2025::day1::p1(const std::vector<int> &input) {
     return ans;
 }
 
-int aoc2025::day1::p2(const std::vector<int> &input) {
+int aoc2025::day01::p2(const std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
