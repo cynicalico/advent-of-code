@@ -6,7 +6,7 @@ Standard: Latest
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
-ColumnLimit: 80
+ColumnLimit: 120
 AlignAfterOpenBracket: Align
 BinPackParameters: false
 AlignEscapedNewlines: LeftWithLastLine
