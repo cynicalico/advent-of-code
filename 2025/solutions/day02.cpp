@@ -25,6 +25,7 @@ void find_invalid(std::set<std::uint64_t> &invalid,
                   const std::uint64_t digit_min) {
     const auto digits = aoc2025::utils::num_digits(start);
     for (auto k = digit_min; k <= digits / 2; ++k) {
+        if (digits % k != 0) continue;
         const auto m = static_cast<std::uint64_t>(std::pow(10, k));
         const auto n = static_cast<std::uint64_t>(std::pow(10, digits - k));
         for (auto i = start / n; i <= end / n; ++i) {
