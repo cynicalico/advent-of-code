@@ -22,10 +22,9 @@ std::vector<std::tuple<std::uint64_t, std::uint64_t>> aoc2025::day02::parse_inpu
 void find_invalid(std::set<std::uint64_t> &invalid,
                   const std::uint64_t start,
                   const std::uint64_t end,
-                  const std::uint64_t digit_min,
-                  const std::uint64_t digit_max) {
+                  const std::uint64_t digit_min) {
     const auto digits = aoc2025::utils::num_digits(start);
-    for (auto k = digit_min; k <= digit_max; ++k) {
+    for (auto k = digit_min; k <= digits / 2; ++k) {
         const auto m = static_cast<std::uint64_t>(std::pow(10, k));
         const auto n = static_cast<std::uint64_t>(std::pow(10, digits - k));
         for (auto i = start / n; i <= end / n; ++i) {
@@ -42,16 +41,14 @@ std::uint64_t aoc2025::day02::p1(const std::vector<std::tuple<std::uint64_t, std
     for (const auto &[start, end] : input) {
         const auto digits = utils::num_digits(start);
         if (digits % 2 != 0) continue;
-        find_invalid(invalid, start, end, digits / 2, digits / 2);
+        find_invalid(invalid, start, end, digits / 2);
     }
     return std::ranges::fold_left(invalid, 0, std::plus{});
 }
 
 std::uint64_t aoc2025::day02::p2(const std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
     std::set<std::uint64_t> invalid;
-    for (const auto &[start, end] : input) {
-        const auto digits = utils::num_digits(start);
-        find_invalid(invalid, start, end, 1, digits / 2);
-    }
+    for (const auto &[start, end] : input)
+        find_invalid(invalid, start, end, 1);
     return std::ranges::fold_left(invalid, 0, std::plus{});
 }

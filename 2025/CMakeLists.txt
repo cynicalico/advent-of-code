@@ -37,10 +37,10 @@ target_sources(aoc2025
 
 target_link_libraries(aoc2025 PUBLIC fmt::fmt ctre)
 
-add_executable(day1 solutions/day01.cpp)
-target_compile_features(day1 PRIVATE cxx_std_23)
-target_link_libraries(day1 PRIVATE aoc2025)
+add_executable(day01 solutions/day01.cpp)
+target_compile_features(day01 PRIVATE cxx_std_23)
+target_link_libraries(day01 PRIVATE aoc2025)
 
-add_executable(day2 solutions/day02.cpp)
-target_compile_features(day2 PRIVATE cxx_std_23)
-target_link_libraries(day2 PRIVATE aoc2025)
+add_executable(day02 solutions/day02.cpp)
+target_compile_features(day02 PRIVATE cxx_std_23)
+target_link_libraries(day02 PRIVATE aoc2025)
