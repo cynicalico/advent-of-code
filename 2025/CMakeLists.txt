@@ -44,3 +44,7 @@ target_link_libraries(day01 PRIVATE aoc2025)
 add_executable(day02 solutions/day02.cpp)
 target_compile_features(day02 PRIVATE cxx_std_23)
 target_link_libraries(day02 PRIVATE aoc2025)
+
+add_executable(day03 solutions/day03.cpp)
+target_compile_features(day03 PRIVATE cxx_std_23)
+target_link_libraries(day03 PRIVATE aoc2025)
