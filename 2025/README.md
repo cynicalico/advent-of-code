@@ -7,6 +7,8 @@ for AoC at all.
 
 - [x] Day 1 — straightforward solution, no special tricks
 - [x] Day 2 — regex too powerful (kind of slow from all the int→string conversions, but it can't be helped)
+    - [Original solution](https://github.com/cynicalico/advent-of-code/blob/f8fcb9512a4e39faaa0343894717cc9f7bd9d8ea/2025/solutions/day02.cpp)
+      with regex rewritten to instead generate numbers instead of brute force validating.
 - [ ] Day 3 — not released
 - [ ] Day 4 — not released
 - [ ] Day 5 — not released
