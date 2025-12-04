@@ -8,7 +8,7 @@ namespace aoc2025::utils {
 template <typename T>
 std::generator<Vec2<T>> moore_neighborhood_seq(const Vec2<T> &p) {
     static constexpr std::array<Vec2<T>, 8> OFFSETS = {
-        {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}}};
+            {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}}};
     for (const auto &d : OFFSETS)
         co_yield p + d;
 }
