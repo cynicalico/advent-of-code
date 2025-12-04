@@ -33,6 +33,7 @@ target_sources(aoc2025
         "utils/parse.hpp"
         "utils/print.hpp"
         "utils/std.hpp"
+        "utils/vec.hpp"
 )
 
 target_link_libraries(aoc2025 PUBLIC fmt::fmt ctre)
@@ -48,3 +49,7 @@ target_link_libraries(day02 PRIVATE aoc2025)
 add_executable(day03 solutions/day03.cpp)
 target_compile_features(day03 PRIVATE cxx_std_23)
 target_link_libraries(day03 PRIVATE aoc2025)
+
+add_executable(day04 solutions/day04.cpp)
+target_compile_features(day04 PRIVATE cxx_std_23)
+target_link_libraries(day04 PRIVATE aoc2025)

@@ -5,6 +5,7 @@
 #include "utils/parse.hpp"
 #include "utils/print.hpp"
 #include "utils/std.hpp"
+#include "utils/vec.hpp"
 
 #include "ctre.hpp"
 
