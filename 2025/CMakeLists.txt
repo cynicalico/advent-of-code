@@ -11,11 +11,21 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 FetchContent_Declare(
-        ctre
+        compile-time-regular-expressions
         GIT_REPOSITORY https://github.com/hanickadot/compile-time-regular-expressions
         GIT_TAG v3.10.0
 )
-FetchContent_MakeAvailable(ctre)
+FetchContent_MakeAvailable(compile-time-regular-expressions)
+
+set(BOOST_INCLUDE_LIBRARIES container_hash)
+set(BOOST_ENABLE_CMAKE ON)
+FetchContent_Declare(
+        boost
+        GIT_REPOSITORY https://github.com/boostorg/boost.git
+        GIT_TAG boost-1.89.0
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(boost)
 
 add_library(aoc2025)
 target_compile_features(aoc2025 PRIVATE cxx_std_23)
@@ -36,7 +46,7 @@ target_sources(aoc2025
         "utils/vec.hpp"
 )
 
-target_link_libraries(aoc2025 PUBLIC fmt::fmt ctre)
+target_link_libraries(aoc2025 PUBLIC fmt::fmt ctre Boost::container_hash)
 
 add_executable(day01 solutions/day01.cpp)
 target_compile_features(day01 PRIVATE cxx_std_23)
