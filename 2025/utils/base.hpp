@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils/grid.hpp"
 #include "utils/io.hpp"
 #include "utils/math.hpp"
 #include "utils/parse.hpp"
@@ -17,8 +18,8 @@
     namespace aoc##yyyy::day##dd {                                        \
         const char *INPUT_FILENAME = "input/day" #dd ".txt";              \
         UNPACK parse_result_t parse_input_file();                         \
-        UNPACK p1_ans_t p1(const UNPACK parse_result_t &input);           \
-        UNPACK p2_ans_t p2(const UNPACK parse_result_t &input);           \
+        UNPACK p1_ans_t p1(UNPACK parse_result_t & input);                \
+        UNPACK p2_ans_t p2(UNPACK parse_result_t & input);                \
     }
 
 #define SOLUTION_MAIN(yyyy, dd, p1_ans_t, p2_ans_t)                                              \
@@ -31,7 +32,7 @@
                                                                                                  \
         auto start = steady_clock::now();                                                        \
         try {                                                                                    \
-            const auto input = parse_input_file();                                               \
+            auto input = parse_input_file();                                                     \
             p1_ans = p1(input);                                                                  \
             p2_ans = p2(input);                                                                  \
         } catch (const std::runtime_error &e) {                                                  \

@@ -17,7 +17,7 @@ std::vector<int> aoc2025::day01::parse_input_file() {
     // clang-format on
 }
 
-int aoc2025::day01::p1(const std::vector<int> &input) {
+int aoc2025::day01::p1(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -27,7 +27,7 @@ int aoc2025::day01::p1(const std::vector<int> &input) {
     return ans;
 }
 
-int aoc2025::day01::p2(const std::vector<int> &input) {
+int aoc2025::day01::p2(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {

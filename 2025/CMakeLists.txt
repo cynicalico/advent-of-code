@@ -38,6 +38,7 @@ target_sources(aoc2025
         FILE_SET HEADERS
         FILES
         "utils/base.hpp"
+        "utils/grid.hpp"
         "utils/io.hpp"
         "utils/math.hpp"
         "utils/parse.hpp"

@@ -12,10 +12,10 @@ SOLUTION(2025, 03, (std::vector<BatteryBank>), (Joltage), (Joltage))
 std::vector<BatteryBank> aoc2025::day03::parse_input_file() {
     // clang-format off
     return utils::iter_file_lines(INPUT_FILENAME)
-        | std::views::transform([](const auto &line) {
-            return line | std::views::transform([](const char c) { return c - '0'; }) | std::ranges::to<BatteryBank>();
-        })
-        | std::ranges::to<std::vector>();
+            | std::views::transform([](const auto &line) {
+                return line | std::views::transform([](const char c) { return c - '0'; }) | std::ranges::to<BatteryBank>();
+            })
+            | std::ranges::to<std::vector>();
     // clang-format on
 }
 
@@ -32,13 +32,13 @@ Joltage find_max_joltage(const BatteryBank &bank, const std::size_t battery_coun
     return max_joltage;
 }
 
-Joltage aoc2025::day03::p1(const std::vector<BatteryBank> &input) {
+Joltage aoc2025::day03::p1(std::vector<BatteryBank> &input) {
     const auto max_joltages = input | std::views::transform([](const auto &bank) { return find_max_joltage(bank, 2); });
     return std::ranges::fold_left(max_joltages, 0, std::plus{});
 }
 
-Joltage aoc2025::day03::p2(const std::vector<BatteryBank> &input) {
+Joltage aoc2025::day03::p2(std::vector<BatteryBank> &input) {
     const auto max_joltages =
-        input | std::views::transform([](const auto &bank) { return find_max_joltage(bank, 12); });
+            input | std::views::transform([](const auto &bank) { return find_max_joltage(bank, 12); });
     return std::ranges::fold_left(max_joltages, 0, std::plus{});
 }
