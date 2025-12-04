@@ -42,6 +42,7 @@ target_sources(aoc2025
         "utils/math.hpp"
         "utils/parse.hpp"
         "utils/print.hpp"
+        "utils/sequence.hpp"
         "utils/std.hpp"
         "utils/vec.hpp"
 )

@@ -8,11 +8,11 @@ template <typename T>
 struct Vec2 {
     T x, y;
 
-    Vec2()
+    constexpr Vec2()
         : x(T(0)),
           y(T(0)) {}
 
-    Vec2(T x, T y)
+    constexpr Vec2(T x, T y)
         : x(x),
           y(y) {}
 
@@ -34,12 +34,12 @@ template <typename T>
 struct Vec3 {
     T x, y, z;
 
-    Vec3()
+    constexpr Vec3()
         : x(T(0)),
           y(T(0)),
           z(T(0)) {}
 
-    Vec3(T x, T y, T z)
+    constexpr Vec3(T x, T y, T z)
         : x(x),
           y(y),
           z(z) {}
@@ -62,13 +62,13 @@ template <typename T>
 struct Vec4 {
     T x, y, z, w;
 
-    Vec4()
+    constexpr Vec4()
         : x(T(0)),
           y(T(0)),
           z(T(0)),
           w(T(0)) {}
 
-    Vec4(T x, T y, T z, T w)
+    constexpr Vec4(T x, T y, T z, T w)
         : x(x),
           y(y),
           z(z),
