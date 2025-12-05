@@ -1,25 +1,22 @@
-#pragma once
-
 /* Day 1: Secret Entrance
  * https://adventofcode.com/2025/day/1
  */
 
-#include "utils/base.hpp"
+#include "solutions/2025/prototypes.hpp"
 
-SOLUTION_PROTOTYPES(2025, 01, (std::vector<int>), (int), (int))
-
-inline std::vector<int> aoc2025::day01::parse_input_file(const std::filesystem::path &input_path) {
+AOC_NAMESPACE(2025, 01) {
+std::vector<int> parse_input_file(const std::filesystem::path &input_path) {
     // clang-format off
-    return utils::iter_file_lines(input_path) |
-           std::views::transform([](const auto &line) {
-               const auto amount = utils::parse<int>(line);
-               return line[0] == 'L' ? -amount : amount;
-           }) |
-           std::ranges::to<std::vector>();
+        return utils::iter_file_lines(input_path) |
+               std::views::transform([](const auto &line) {
+                   const auto amount = utils::parse<int>(line);
+                   return line[0] == 'L' ? -amount : amount;
+               }) |
+               std::ranges::to<std::vector>();
     // clang-format on
 }
 
-inline int aoc2025::day01::p1(std::vector<int> &input) {
+int p1(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -29,7 +26,7 @@ inline int aoc2025::day01::p1(std::vector<int> &input) {
     return ans;
 }
 
-inline int aoc2025::day01::p2(std::vector<int> &input) {
+int p2(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -42,4 +39,5 @@ inline int aoc2025::day01::p2(std::vector<int> &input) {
         if (position == 0) ans++;
     }
     return ans;
+}
 }

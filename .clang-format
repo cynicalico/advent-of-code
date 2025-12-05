@@ -21,4 +21,13 @@ AllowShortCaseExpressionOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 BinPackArguments: false
 AlignOperands: AlignAfterOperator
+AllowShortBlocksOnASingleLine: Always
+AllowShortFunctionsOnASingleLine: All
+AllowShortEnumsOnASingleLine: true
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: true
+NamespaceIndentation: None
+FixNamespaceComments: false
+NamespaceMacros:
+  - AOC_NAMESPACE
 ...

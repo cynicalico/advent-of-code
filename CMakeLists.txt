@@ -40,13 +40,67 @@ add_library(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)
 target_sources(aoc
         PRIVATE
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("solutions", topdown=True):
+        #   dirs[:] = sorted(dirs, key=int) # sort dirs by year
+        #   for f in sorted(files):
+        #       if f.endswith(".cpp"):
+        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
+        "solutions/2025/day01.cpp"
+        "solutions/2025/day02.cpp"
+        "solutions/2025/day03.cpp"
+        "solutions/2025/day04.cpp"
+        "solutions/2025/day05.cpp"
+        # [[[end]]]
+
+        PUBLIC
+        FILE_SET solution_headers
+        TYPE HEADERS
+        FILES
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("solutions", topdown=True):
+        #   dirs[:] = sorted(dirs, key=int) # sort dirs by year
+        #   for f in sorted(files):
+        #       if f.endswith(".hpp"):
+        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
+        "solutions/prototype_macro.hpp"
+        "solutions/2025/prototypes.hpp"
+        # [[[end]]]
+
+        PRIVATE
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("utils"):
+        #   for f in sorted(files):
+        #       if f.endswith(".cpp"):
+        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
         "utils/io.cpp"
+        # [[[end]]]
 
         PUBLIC
         FILE_SET utils
         TYPE HEADERS
         FILES
-        "utils/base.hpp"
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("utils"):
+        #   for f in sorted(files):
+        #       if f.endswith(".hpp"):
+        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
         "utils/grid.hpp"
         "utils/io.hpp"
         "utils/math.hpp"
@@ -54,30 +108,8 @@ target_sources(aoc
         "utils/print.hpp"
         "utils/sequence.hpp"
         "utils/std.hpp"
+        "utils/utils.hpp"
         "utils/vec.hpp"
-
-        PRIVATE
-        FILE_SET solution_headers
-        TYPE HEADERS
-        FILES
-        # [[[cog
-        # import cog
-        # import os
-        # import re
-        #
-        # def extract_day(p):
-        #   return re.match(r"day(\d+)\.hpp", p)[1]
-        #
-        # for root, dirs, files in os.walk("solutions", topdown=True):
-        #   dirs[:] = sorted(dirs, key=int) # sort dirs by year
-        #   for f in sorted(files, key=extract_day):
-        #       cog.outl(f"\"{os.path.join(root, f)}\"")
-        # ]]]
-        "solutions/2025/day01.hpp"
-        "solutions/2025/day02.hpp"
-        "solutions/2025/day03.hpp"
-        "solutions/2025/day04.hpp"
-        "solutions/2025/day05.hpp"
         # [[[end]]]
 )
 

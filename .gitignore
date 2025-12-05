@@ -1,7 +1,5 @@
 .idea/
 
-**/input/
-*.pdb
-*.exe
-
 .build/
+input/
+.env/

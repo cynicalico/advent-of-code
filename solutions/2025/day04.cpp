@@ -1,17 +1,11 @@
-#pragma once
-
 /* Day 4: Printing Department
  * https://adventofcode.com/2025/day/4
  */
 
-#include "utils/base.hpp"
+#include "solutions/2025/prototypes.hpp"
 
-using Grid = utils::Grid2D<std::int32_t>;
-using Pos = utils::Vec2<std::int32_t>;
-
-SOLUTION_PROTOTYPES(2025, 04, (Grid), (std::uint32_t), (std::uint32_t))
-
-inline Grid aoc2025::day04::parse_input_file(const std::filesystem::path &input_path) {
+AOC_NAMESPACE(2025, 04) {
+Grid parse_input_file(const std::filesystem::path &input_path) {
     const auto input = utils::iter_file_lines(input_path) | std::ranges::to<std::vector>();
     auto grid = Grid(input[0].size(), input.size());
     for (const auto &[y, line] : std::views::enumerate(input)) {
@@ -30,12 +24,12 @@ inline Grid aoc2025::day04::parse_input_file(const std::filesystem::path &input_
     return grid;
 }
 
-inline std::uint32_t aoc2025::day04::p1(Grid &input) {
+std::uint32_t p1(Grid &input) {
     return std::ranges::count_if(utils::grid_seq<std::size_t>(input),
                                  [&input](const auto &p) { return input[p] >= 0 && input[p] < 4; });
 }
 
-inline std::uint32_t aoc2025::day04::p2(Grid &input) {
+std::uint32_t p2(Grid &input) {
     std::uint32_t ans = 0;
     bool moved_roll;
     do {
@@ -51,4 +45,5 @@ inline std::uint32_t aoc2025::day04::p2(Grid &input) {
         }
     } while (moved_roll);
     return ans;
+}
 }
