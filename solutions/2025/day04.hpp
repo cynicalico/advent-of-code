@@ -1,3 +1,5 @@
+#pragma once
+
 /* Day 4: Printing Department
  * https://adventofcode.com/2025/day/4
  */
@@ -7,10 +9,10 @@
 using Grid = utils::Grid2D<std::int32_t>;
 using Pos = utils::Vec2<std::int32_t>;
 
-SOLUTION(2025, 04, (Grid), (std::uint32_t), (std::uint32_t))
+SOLUTION_PROTOTYPES(2025, 04, (Grid), (std::uint32_t), (std::uint32_t))
 
-Grid aoc2025::day04::parse_input_file() {
-    const auto input = utils::iter_file_lines(INPUT_FILENAME) | std::ranges::to<std::vector>();
+inline Grid aoc2025::day04::parse_input_file(const std::filesystem::path &input_path) {
+    const auto input = utils::iter_file_lines(input_path) | std::ranges::to<std::vector>();
     auto grid = Grid(input[0].size(), input.size());
     for (const auto &[y, line] : std::views::enumerate(input)) {
         for (const auto &[x, c] : std::views::enumerate(line)) {
@@ -28,12 +30,12 @@ Grid aoc2025::day04::parse_input_file() {
     return grid;
 }
 
-std::uint32_t aoc2025::day04::p1(Grid &input) {
+inline std::uint32_t aoc2025::day04::p1(Grid &input) {
     return std::ranges::count_if(utils::grid_seq<std::size_t>(input),
                                  [&input](const auto &p) { return input[p] >= 0 && input[p] < 4; });
 }
 
-std::uint32_t aoc2025::day04::p2(Grid &input) {
+inline std::uint32_t aoc2025::day04::p2(Grid &input) {
     std::uint32_t ans = 0;
     bool moved_roll;
     do {

@@ -1,3 +1,5 @@
+#pragma once
+
 /* Day 5: Cafeteria
  * https://adventofcode.com/2025/day/5
  */
@@ -7,14 +9,14 @@
 using Range = utils::Interval<std::uint64_t>;
 using Input = std::pair<std::vector<Range>, std::vector<std::uint64_t>>;
 
-SOLUTION(2025, 05, (Input), (std::size_t), (std::size_t))
+SOLUTION_PROTOTYPES(2025, 05, (Input), (std::size_t), (std::size_t))
 
-Input aoc2025::day05::parse_input_file() {
+inline Input aoc2025::day05::parse_input_file(const std::filesystem::path &input_path) {
     std::vector<Range> ranges;
     std::vector<std::uint64_t> ids;
 
     bool parsing_ranges = true;
-    for (const auto &line : utils::iter_file_lines(INPUT_FILENAME)) {
+    for (const auto &line : utils::iter_file_lines(input_path)) {
         if (line.empty()) {
             parsing_ranges = false;
             continue;
@@ -39,13 +41,13 @@ Input aoc2025::day05::parse_input_file() {
     return {combined_ranges, ids};
 }
 
-std::size_t aoc2025::day05::p1(Input &input) {
+inline std::size_t aoc2025::day05::p1(Input &input) {
     return std::ranges::count_if(input.second, [&input](const auto &id) {
         return std::ranges::any_of(input.first, [&id](const auto &range) { return range.contains(id); });
     });
 }
 
-std::size_t aoc2025::day05::p2(Input &input) {
+inline std::size_t aoc2025::day05::p2(Input &input) {
     return std::ranges::fold_left(
             input.first, 0, [](std::size_t count, const auto &range) { return count + range.size(); });
 }

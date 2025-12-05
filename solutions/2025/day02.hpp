@@ -1,14 +1,17 @@
+#pragma once
+
 /* Day 2: Gift Shop
  * https://adventofcode.com/2025/day/2
  */
 
 #include "utils/base.hpp"
 
-SOLUTION(2025, 02, (std::vector<std::tuple<std::uint64_t, std::uint64_t>>), (std::uint64_t), (std::uint64_t))
+SOLUTION_PROTOTYPES(2025, 02, (std::vector<std::tuple<std::uint64_t, std::uint64_t>>), (std::uint64_t), (std::uint64_t))
 
-std::vector<std::tuple<std::uint64_t, std::uint64_t>> aoc2025::day02::parse_input_file() {
+inline std::vector<std::tuple<std::uint64_t, std::uint64_t>>
+aoc2025::day02::parse_input_file(const std::filesystem::path &input_path) {
     std::vector<std::tuple<std::uint64_t, std::uint64_t>> ranges;
-    for (const auto &[start, end] : utils::iter_file_integer_tuples<std::uint64_t, 2>(INPUT_FILENAME)) {
+    for (const auto &[start, end] : utils::iter_file_integer_tuples<std::uint64_t, 2>(input_path)) {
         if (utils::num_digits(end) > utils::num_digits(start)) {
             const auto next_po10 = std::pow(10, utils::num_digits(start));
             ranges.emplace_back(start, next_po10 - 1);
@@ -19,10 +22,10 @@ std::vector<std::tuple<std::uint64_t, std::uint64_t>> aoc2025::day02::parse_inpu
     return ranges;
 }
 
-void find_invalid(std::set<std::uint64_t> &invalid,
-                  const std::uint64_t start,
-                  const std::uint64_t end,
-                  const std::uint64_t digit_min) {
+inline void find_invalid(std::set<std::uint64_t> &invalid,
+                         const std::uint64_t start,
+                         const std::uint64_t end,
+                         const std::uint64_t digit_min) {
     const auto digits = utils::num_digits(start);
     for (auto k = digit_min; k <= digits / 2; ++k) {
         if (digits % k != 0) continue;
@@ -37,7 +40,7 @@ void find_invalid(std::set<std::uint64_t> &invalid,
     }
 }
 
-std::uint64_t aoc2025::day02::p1(std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
+inline std::uint64_t aoc2025::day02::p1(std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
     std::set<std::uint64_t> invalid;
     for (const auto &[start, end] : input) {
         const auto digits = utils::num_digits(start);
@@ -47,7 +50,7 @@ std::uint64_t aoc2025::day02::p1(std::vector<std::tuple<std::uint64_t, std::uint
     return std::ranges::fold_left(invalid, 0, std::plus{});
 }
 
-std::uint64_t aoc2025::day02::p2(std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
+inline std::uint64_t aoc2025::day02::p2(std::vector<std::tuple<std::uint64_t, std::uint64_t>> &input) {
     std::set<std::uint64_t> invalid;
     for (const auto &[start, end] : input)
         find_invalid(invalid, start, end, 1);
