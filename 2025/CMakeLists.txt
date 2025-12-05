@@ -32,7 +32,6 @@ target_compile_features(aoc2025 PRIVATE cxx_std_23)
 target_sources(aoc2025
         PRIVATE
         "utils/io.cpp"
-        "utils/math.cpp"
 
         PUBLIC
         FILE_SET HEADERS
@@ -65,3 +64,7 @@ target_link_libraries(day03 PRIVATE aoc2025)
 add_executable(day04 solutions/day04.cpp)
 target_compile_features(day04 PRIVATE cxx_std_23)
 target_link_libraries(day04 PRIVATE aoc2025)
+
+add_executable(day05 solutions/day05.cpp)
+target_compile_features(day05 PRIVATE cxx_std_23)
+target_link_libraries(day05 PRIVATE aoc2025)

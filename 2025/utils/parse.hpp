@@ -1,8 +1,10 @@
 #pragma once
 
+#include <array>
 #include <cctype>
 #include <generator>
 #include <string_view>
+#include <tuple>
 #include <type_traits>
 
 namespace aoc2025::utils {
@@ -79,5 +81,16 @@ std::generator<T> iterate_parse(const std::string_view sv) {
         prev = c;
     }
     if (parsing) co_yield result *sign;
+}
+
+template <typename T, std::size_t N>
+    requires std::is_integral_v<T>
+auto parse_n(const std::string_view sv) {
+    std::array<T, N> values;
+    auto gen = iterate_parse<T>(sv);
+    auto it = gen.begin();
+    for (std::size_t i = 0; i < N && it != gen.end(); ++i, ++it)
+        values[i] = *it;
+    return std::tuple_cat(values);
 }
 } // namespace aoc2025::utils
