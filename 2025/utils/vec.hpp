@@ -3,7 +3,7 @@
 #include "boost/container_hash/hash.hpp"
 #include <type_traits>
 
-namespace aoc2025::utils {
+namespace utils {
 template <typename T>
 struct Vec2 {
     T x, y;
@@ -87,11 +87,11 @@ struct Vec4 {
     Vec4 operator*=(const T &scalar) { return *this = *this * scalar; }
     Vec4 operator/=(const T &scalar) { return *this = *this / scalar; }
 };
-} // namespace aoc2025::utils
+} // namespace utils
 
 template <typename T>
-struct std::hash<aoc2025::utils::Vec2<T>> {
-    std::size_t operator()(const aoc2025::utils::Vec2<T> &v) const noexcept {
+struct std::hash<utils::Vec2<T>> {
+    std::size_t operator()(const utils::Vec2<T> &v) const noexcept {
         std::size_t seed = 0;
         boost::hash_combine(seed, std::hash<T>{}(v.x));
         boost::hash_combine(seed, std::hash<T>{}(v.y));
@@ -100,8 +100,8 @@ struct std::hash<aoc2025::utils::Vec2<T>> {
 };
 
 template <typename T>
-struct std::hash<aoc2025::utils::Vec3<T>> {
-    std::size_t operator()(const aoc2025::utils::Vec3<T> &v) const noexcept {
+struct std::hash<utils::Vec3<T>> {
+    std::size_t operator()(const utils::Vec3<T> &v) const noexcept {
         std::size_t seed = 0;
         boost::hash_combine(seed, std::hash<T>{}(v.x));
         boost::hash_combine(seed, std::hash<T>{}(v.y));
@@ -111,8 +111,8 @@ struct std::hash<aoc2025::utils::Vec3<T>> {
 };
 
 template <typename T>
-struct std::hash<aoc2025::utils::Vec4<T>> {
-    std::size_t operator()(const aoc2025::utils::Vec4<T> &v) const noexcept {
+struct std::hash<utils::Vec4<T>> {
+    std::size_t operator()(const utils::Vec4<T> &v) const noexcept {
         std::size_t seed = 0;
         boost::hash_combine(seed, std::hash<T>{}(v.x));
         boost::hash_combine(seed, std::hash<T>{}(v.y));

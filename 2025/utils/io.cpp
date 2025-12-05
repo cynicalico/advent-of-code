@@ -2,14 +2,14 @@
 #include "utils/print.hpp"
 #include <fstream>
 
-std::string aoc2025::utils::read_file(const std::filesystem::path &path) {
+std::string utils::read_file(const std::filesystem::path &path) {
     std::ifstream file(path);
     if (!file.is_open()) throw std::runtime_error(fmt::format("Failed to open file: {}", path));
 
     return {std::istreambuf_iterator(file), {}};
 }
 
-std::generator<std::string> aoc2025::utils::iter_file_lines(const std::filesystem::path &path) {
+std::generator<std::string> utils::iter_file_lines(const std::filesystem::path &path) {
     std::ifstream file(path);
     if (!file.is_open()) throw std::runtime_error(fmt::format("Failed to open file: {}", path));
 

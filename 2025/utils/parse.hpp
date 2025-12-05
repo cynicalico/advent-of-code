@@ -7,7 +7,7 @@
 #include <tuple>
 #include <type_traits>
 
-namespace aoc2025::utils {
+namespace utils {
 template <typename T>
     requires std::is_integral_v<T> and std::is_unsigned_v<T>
 T parse(const std::string_view sv) {
@@ -93,4 +93,4 @@ auto parse_n(const std::string_view sv) {
         values[i] = *it;
     return std::tuple_cat(values);
 }
-} // namespace aoc2025::utils
+} // namespace utils

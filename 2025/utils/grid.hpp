@@ -3,7 +3,7 @@
 #include "utils/vec.hpp"
 #include <vector>
 
-namespace aoc2025::utils {
+namespace utils {
 template <typename T>
 class Grid2D {
 public:
@@ -91,4 +91,4 @@ template <typename U>
 const T &Grid2D<T>::operator[](Vec2<U> pos) const {
     return data_[static_cast<std::size_t>(pos.y) * width_ + static_cast<std::size_t>(pos.x)];
 }
-} // namespace aoc2025::utils
+} // namespace utils

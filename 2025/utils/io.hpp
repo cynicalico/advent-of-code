@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-namespace aoc2025::utils {
+namespace utils {
 std::string read_file(const std::filesystem::path &path);
 
 std::generator<std::string> iter_file_lines(const std::filesystem::path &path);
@@ -46,4 +46,4 @@ auto iter_file_integer_tuples(const std::filesystem::path &path) {
 
     return result;
 }
-} // namespace aoc2025::utils
+} // namespace utils

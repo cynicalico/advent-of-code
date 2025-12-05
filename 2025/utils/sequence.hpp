@@ -4,7 +4,7 @@
 #include "utils/vec.hpp"
 #include <generator>
 
-namespace aoc2025::utils {
+namespace utils {
 template <typename T>
 std::generator<Vec2<T>> moore_neighborhood_seq(const Vec2<T> &p) {
     static constexpr std::array<Vec2<T>, 8> OFFSETS = {
@@ -31,4 +31,4 @@ template <typename T, typename U>
 std::generator<Vec2<T>> grid_seq(const Grid2D<U> &grid) {
     return grid_seq<T>(0, grid.width() - 1, 0, grid.height() - 1);
 }
-} // namespace aoc2025::utils
+} // namespace utils

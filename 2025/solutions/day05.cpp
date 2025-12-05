@@ -4,7 +4,7 @@
 
 #include "utils/base.hpp"
 
-using Range = aoc2025::utils::Interval<std::uint64_t>;
+using Range = utils::Interval<std::uint64_t>;
 using Input = std::pair<std::vector<Range>, std::vector<std::uint64_t>>;
 
 SOLUTION(2025, 05, (Input), (std::size_t), (std::size_t))

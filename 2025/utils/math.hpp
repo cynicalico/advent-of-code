@@ -4,7 +4,7 @@
 #include <tuple>
 #include <type_traits>
 
-namespace aoc2025::utils {
+namespace utils {
 template <typename T>
     requires std::is_integral_v<T>
 T mod(T a, T b) {
@@ -41,4 +41,4 @@ struct Interval {
         return lo <= static_cast<T>(v) && static_cast<T>(v) <= hi;
     }
 };
-} // namespace aoc2025::utils
+} // namespace utils

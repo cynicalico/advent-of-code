@@ -4,8 +4,8 @@
 
 #include "utils/base.hpp"
 
-using Grid = aoc2025::utils::Grid2D<std::int32_t>;
-using Pos = aoc2025::utils::Vec2<std::int32_t>;
+using Grid = utils::Grid2D<std::int32_t>;
+using Pos = utils::Vec2<std::int32_t>;
 
 SOLUTION(2025, 04, (Grid), (std::uint32_t), (std::uint32_t))
 
