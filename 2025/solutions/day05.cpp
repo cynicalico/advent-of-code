@@ -19,10 +19,9 @@ Input aoc2025::day05::parse_input_file() {
             parsing_ranges = false;
             continue;
         }
-        if (parsing_ranges) {
-            const auto [lo, hi] = utils::parse_n<std::uint64_t, 2>(line);
-            ranges.emplace_back(lo, hi);
-        } else
+        if (parsing_ranges)
+            ranges.emplace_back(utils::parse_n<std::uint64_t, 2>(line));
+        else
             ids.emplace_back(utils::parse<std::uint64_t>(line));
     }
 

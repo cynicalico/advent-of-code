@@ -28,6 +28,8 @@ struct Interval {
     Interval(T lo, T hi)
         : lo(lo),
           hi(hi) {}
+    explicit Interval(const std::tuple<T, T> &t)
+        : Interval(std::get<0>(t), std::get<1>(t)) {}
 
     T size() const { return hi - lo + 1; }
 
