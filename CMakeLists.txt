@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(aoc LANGUAGES CXX)
+project(libaoc LANGUAGES CXX)
 
 include(FetchContent)
 
@@ -36,9 +36,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(cpr)
 
-add_library(aoc)
-target_compile_features(aoc PRIVATE cxx_std_23)
-target_sources(aoc
+add_library(libaoc)
+target_compile_features(libaoc PRIVATE cxx_std_23)
+target_sources(libaoc
         PRIVATE
         # [[[cog
         # import cog
@@ -50,6 +50,7 @@ target_sources(aoc
         #       if f.endswith(".cpp"):
         #           cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
+        "solutions/2024/day01.cpp"
         "solutions/2025/day01.cpp"
         "solutions/2025/day02.cpp"
         "solutions/2025/day03.cpp"
@@ -72,6 +73,7 @@ target_sources(aoc
         #           cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "solutions/prototype_macro.hpp"
+        "solutions/2024/prototypes.hpp"
         "solutions/2025/prototypes.hpp"
         # [[[end]]]
 
@@ -120,8 +122,8 @@ target_sources(aoc
         "thirdparty/dotenv.h"
 )
 
-target_link_libraries(aoc PUBLIC fmt::fmt ctre Boost::container_hash cpr::cpr)
+target_link_libraries(libaoc PUBLIC fmt::fmt ctre Boost::container_hash cpr::cpr)
 
-add_executable(runner runner.cpp)
-target_compile_features(runner PRIVATE cxx_std_23)
-target_link_libraries(runner PRIVATE aoc)
+add_executable(aoc aoc.cpp aoc_proxy.hpp)
+target_compile_features(aoc PRIVATE cxx_std_23)
+target_link_libraries(aoc PRIVATE libaoc)

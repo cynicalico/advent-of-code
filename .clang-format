@@ -15,7 +15,7 @@ BreakTemplateDeclarations: Yes
 PackConstructorInitializers: Never
 IndentPPDirectives: AfterHash
 SortIncludes: CaseInsensitive
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AlignTrailingComments: false
 AllowShortCaseExpressionOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true

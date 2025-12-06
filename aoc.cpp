@@ -1,11 +1,6 @@
+#include "aoc_proxy.hpp"
 #include "thirdparty/argparse.hpp"
 #include "thirdparty/dotenv.h"
-#include "utils/io.hpp"
-#include "utils/print.hpp"
-#include <cpr/cpr.h>
-#include <filesystem>
-#include <functional>
-#include <map>
 
 using Solution = std::function<std::tuple<std::string, std::string>(const std::filesystem::path &)>;
 std::map<int, std::map<int, Solution>> solution_map();
@@ -16,14 +11,6 @@ filter_solutions(std::optional<int> desired_year,
                  const std::optional<std::string> &desired_input);
 
 void run_solutions(const std::vector<std::tuple<int, int, Solution, std::filesystem::path>> &solutions_to_run);
-
-auto THROTTLE_TIMESTAMP_FILE = ".last_dl.timestamp";
-constexpr int THROTTLE_SECONDS = 180;
-bool dl_input(int year, int day, bool force);
-bool dl_puzzle(int year, int day, bool force);
-std::int64_t seconds_since_epoch();
-bool should_throttle_dl();
-void write_throttle_file();
 
 int main(int argc, char *argv[]) {
     dotenv::init();
@@ -41,8 +28,15 @@ int main(int argc, char *argv[]) {
     dl_parser.add_argument("day").help("Day to download").scan<'d', int>().required();
     dl_parser.add_argument("--force").help("Force download (still respects throttle)").default_value(false);
 
+    argparse::ArgumentParser submit_parser("submit");
+    submit_parser.add_argument("year").help("Year to submit").scan<'d', int>().required();
+    submit_parser.add_argument("day").help("Day to submit").scan<'d', int>().required();
+    submit_parser.add_argument("part").help("Part to submit (1 or 2)").choices(1, 2).scan<'d', int>().required();
+    submit_parser.add_argument("answer").help("Answer to submit").required();
+
     program.add_subparser(run_parser);
     program.add_subparser(dl_parser);
+    program.add_subparser(submit_parser);
 
     try {
         program.parse_args(argc, argv);
@@ -53,11 +47,10 @@ int main(int argc, char *argv[]) {
 
     if (program.is_subcommand_used("run")) {
         const auto desired_year = run_parser.present<int>("year");
-
         auto desired_day = run_parser.present<int>("day");
-        if (!desired_year) desired_day = std::nullopt;
-
         const auto desired_input = run_parser.present<std::string>("input");
+
+        if (!desired_year) desired_day = std::nullopt;
 
         const auto solutions_to_run = filter_solutions(desired_year, desired_day, desired_input);
         if (solutions_to_run.empty()) {
@@ -68,30 +61,27 @@ int main(int argc, char *argv[]) {
         run_solutions(solutions_to_run);
 
     } else if (program.is_subcommand_used("dl")) {
-        if (should_throttle_dl()) {
-            fmt::print("Downloads throttled to once per 3 minutes\n");
-            return 0;
-        }
-
         const auto what = dl_parser.get<std::string>("what");
         const auto year = dl_parser.get<int>("year");
         const auto day = dl_parser.get<int>("day");
         const auto force = dl_parser.get<bool>("force");
 
-        if (year < 2015 || year > 2025) {
-            fmt::print("Invalid year: {}\n", year);
-            return 1;
-        }
-
-        if ((year < 2025 && (day < 1 || day > 25)) || (year >= 2025 && (day < 1 || day > 12))) {
-            fmt::print("Invalid day: {}\n", day);
-            return 1;
-        }
+        if (!AocProxy::check_year_day(year, day)) return 1;
 
         bool good = true;
-        if (what == "input" || what == "both") good &= dl_input(year, day, force);
-        if (what == "puzzle" || what == "both") good &= dl_puzzle(year, day, force);
-        write_throttle_file();
+        if (what == "input" || what == "both") good &= AocProxy::dl_input(year, day, force);
+        if (what == "puzzle" || what == "both") good &= AocProxy::dl_puzzle(year, day, force);
+        return good ? 0 : 1;
+
+    } else if (program.is_subcommand_used("submit")) {
+        const auto year = submit_parser.get<int>("year");
+        const auto day = submit_parser.get<int>("day");
+        const auto part = submit_parser.get<int>("part");
+        const auto answer = submit_parser.get<std::string>("answer");
+
+        if (!AocProxy::check_year_day(year, day)) return 1;
+
+        bool good = AocProxy::submit_answer(year, day, part, answer);
         return good ? 0 : 1;
     }
 
@@ -147,61 +137,7 @@ void run_solutions(const std::vector<std::tuple<int, int, Solution, std::filesys
                    static_cast<double>(duration_cast<nanoseconds>(total_elapsed).count()) / 1e9);
 }
 
-bool dl_input(int year, int day, bool force) {
-    const auto filename = fmt::format("input/{}/day{:02}.txt", year, day);
-    if (!force && std::filesystem::exists(filename)) {
-        fmt::print("Input already downloaded, use --force to override\n");
-        return true;
-    }
-
-    const auto url = fmt::format("https://adventofcode.com/{}/day/{}/input", year, day);
-
-    const char *session_token = std::getenv("AOC_SESSION");
-    if (!session_token) {
-        fmt::print(stderr, "Error: AOC_SESSION environment variable not set\n");
-        return false;
-    }
-
-    const auto response = cpr::Get(cpr::Url{url},
-                                   cpr::Cookies{{"session", session_token}},
-                                   cpr::UserAgent{"github.com/cynicalico/advent-of-code by cynicalico@pm.me"});
-    if (response.status_code != 200) {
-        fmt::print(stderr,
-                   "Failed to download input: HTTP {}, Error {} -> {}\n",
-                   response.status_code,
-                   std::to_string(response.error.code),
-                   response.error.message);
-        return false;
-    }
-
-    std::filesystem::create_directories(fmt::format("input/{}", year));
-    std::ofstream(fmt::format("input/{}/day{:02}.txt", year, day)) << response.text;
-
-    return true;
-}
-
-bool dl_puzzle(int year, int day, bool force) {
-    fmt::print("TBD");
-    return true;
-}
-
-std::int64_t seconds_since_epoch() {
-    const auto now = std::chrono::system_clock::now();
-    const auto duration = now.time_since_epoch();
-    return std::chrono::duration_cast<std::chrono::seconds>(duration).count();
-}
-
-bool should_throttle_dl() {
-    if (std::filesystem::exists(THROTTLE_TIMESTAMP_FILE)) {
-        const auto timestamp = utils::read_file(THROTTLE_TIMESTAMP_FILE);
-        const auto seconds_since_last_dl = seconds_since_epoch() - std::stoll(timestamp);
-        return seconds_since_last_dl < THROTTLE_SECONDS;
-    }
-    return false;
-}
-
-void write_throttle_file() { std::ofstream(THROTTLE_TIMESTAMP_FILE) << seconds_since_epoch(); }
-
+#include "solutions/2024/prototypes.hpp"
 #include "solutions/2025/prototypes.hpp"
 
 #define SOLUTION(yyyy, dd)                                                                \
@@ -236,6 +172,9 @@ std::map<int, std::map<int, Solution>> solution_map() {
                 cog.outl(f"    {{{day}, SOLUTION({year}, {day})}},")
             cog.outl("}},")
     ]]]*/
+    {2024, {
+        {01, SOLUTION(2024, 01)},
+    }},
     {2025, {
         {01, SOLUTION(2025, 01)},
         {02, SOLUTION(2025, 02)},
