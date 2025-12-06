@@ -4,13 +4,6 @@ project(aoc LANGUAGES CXX)
 include(FetchContent)
 
 FetchContent_Declare(
-        argparse
-        GIT_REPOSITORY https://github.com/p-ranav/argparse
-        GIT_TAG v3.2
-)
-FetchContent_MakeAvailable(argparse)
-
-FetchContent_Declare(
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
         GIT_TAG 12.0.0
@@ -35,6 +28,13 @@ FetchContent_Declare(
         DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 FetchContent_MakeAvailable(boost)
+
+FetchContent_Declare(
+        cpr
+        GIT_REPOSITORY https://github.com/libcpr/cpr
+        GIT_TAG 1.14.1
+)
+FetchContent_MakeAvailable(cpr)
 
 add_library(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)
@@ -111,9 +111,16 @@ target_sources(aoc
         "utils/utils.hpp"
         "utils/vec.hpp"
         # [[[end]]]
+
+        PUBLIC
+        FILE_SET thirdparty
+        TYPE HEADERS
+        FILES
+        "thirdparty/argparse.hpp"
+        "thirdparty/dotenv.h"
 )
 
-target_link_libraries(aoc PUBLIC argparse::argparse fmt::fmt ctre Boost::container_hash)
+target_link_libraries(aoc PUBLIC fmt::fmt ctre Boost::container_hash cpr::cpr)
 
 add_executable(runner runner.cpp)
 target_compile_features(runner PRIVATE cxx_std_23)

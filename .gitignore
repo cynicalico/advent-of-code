@@ -2,4 +2,6 @@
 
 .build/
 input/
-.env/
+
+.env
+.last_dl.timestamp
