@@ -1,7 +1,9 @@
 .idea/
 
 .build/
+
 input/
+puzzles/
 
 .env
 .last_dl.timestamp

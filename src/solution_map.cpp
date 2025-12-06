@@ -37,6 +37,7 @@ std::map<int, std::map<int, Solution>> solution_map() {
         ]]]*/
         {2024, {
             {01, SOLUTION(2024, 01)},
+            {02, SOLUTION(2024, 02)},
         }},
         {2025, {
             {01, SOLUTION(2025, 01)},

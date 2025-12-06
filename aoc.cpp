@@ -1,8 +1,8 @@
 #include "src/aoc_proxy.hpp"
 #include "src/solution_map.hpp"
 
-#include "thirdparty/argparse.hpp"
-#include "thirdparty/dotenv.h"
+#include "argparse/argparse.hpp"
+#include "dotenv.h"
 
 #include <chrono>
 #include <filesystem>
@@ -27,13 +27,13 @@ int main(int argc, char *argv[]) {
     argparse::ArgumentParser run_parser("run");
     run_parser.add_argument("-y", "--year").help("Year to run (empty for all)").scan<'d', int>();
     run_parser.add_argument("-d", "--day").help("Day to run (empty for all)").scan<'d', int>();
-    run_parser.add_argument("-i", "--input").help("Input file to use (empty for default -> input/yyyy/daydd.txt)");
+    run_parser.add_argument("-i", "--input").help("Input file to use (empty for default -> input/YYYY/dayDD.txt)");
 
     argparse::ArgumentParser dl_parser("dl");
     dl_parser.add_argument("what").choices("input", "puzzle", "both").help("What to download").required();
     dl_parser.add_argument("year").help("Year to download").scan<'d', int>().required();
     dl_parser.add_argument("day").help("Day to download").scan<'d', int>().required();
-    dl_parser.add_argument("--force").help("Force download (still respects throttle)").default_value(false);
+    dl_parser.add_argument("--force").help("Force download (still respects throttle)").flag().default_value(false);
 
     argparse::ArgumentParser submit_parser("submit");
     submit_parser.add_argument("year").help("Year to submit").scan<'d', int>().required();
@@ -78,6 +78,9 @@ int main(int argc, char *argv[]) {
         bool good = true;
         if (what == "input" || what == "both") good &= AocProxy::dl_input(year, day, force);
         if (what == "puzzle" || what == "both") good &= AocProxy::dl_puzzle(year, day, force);
+        AocProxy::write_throttle_file(); // TODO: This will overwrite the value even if it didn't download anything,
+                                         //       locking you out until you wait 3 minutes between attempts, not just 3
+                                         //       minutes between actual calls
         return good ? 0 : 1;
 
     } else if (program.is_subcommand_used("submit")) {
@@ -89,6 +92,7 @@ int main(int argc, char *argv[]) {
         if (!AocProxy::check_year_day(year, day)) return 1;
 
         bool good = AocProxy::submit_answer(year, day, part, answer);
+        AocProxy::write_throttle_file(); // TODO: See above
         return good ? 0 : 1;
     }
 

@@ -23,7 +23,7 @@ iter_file_regex(const std::filesystem::path &path) {
 
 template <typename T>
 std::generator<T> iter_file_integers(const std::filesystem::path &path) {
-    for (const std::string input = read_file(path); const auto integer : iterate_parse<T>(input))
+    for (const std::string input = read_file(path); const auto integer : iter_parse<T>(input))
         co_yield integer;
 }
 

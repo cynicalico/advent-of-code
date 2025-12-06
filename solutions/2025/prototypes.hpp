@@ -2,6 +2,10 @@
 
 #include "solutions/prototype_macro.hpp"
 #include "utils/utils.hpp"
+#include <cstdint>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 AOC_NAMESPACE(2025, 01) {
 SOLUTION_PROTOTYPES((std::vector<int>), (int), (int))

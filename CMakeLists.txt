@@ -10,13 +10,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-FetchContent_Declare(
-        compile-time-regular-expressions
-        GIT_REPOSITORY https://github.com/hanickadot/compile-time-regular-expressions
-        GIT_TAG v3.10.0
-)
-FetchContent_MakeAvailable(compile-time-regular-expressions)
-
 set(BOOST_INCLUDE_LIBRARIES container_hash)
 set(BOOST_ENABLE_CMAKE ON)
 FetchContent_Declare(
@@ -38,6 +31,17 @@ FetchContent_MakeAvailable(cpr)
 
 add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
+target_link_libraries(libaoc PUBLIC fmt::fmt Boost::container_hash cpr::cpr)
+
+add_executable(aoc)
+target_compile_features(aoc PRIVATE cxx_std_23)
+target_link_libraries(aoc PRIVATE libaoc)
+
+##################################################
+# EVERYTHING BELOW HERE IS GLOBBED AUTOMATICALLY #
+#           TO UPDATE, RUN `just cog`            #
+##################################################
+
 target_sources(libaoc
         PRIVATE
         # [[[cog
@@ -45,12 +49,13 @@ target_sources(libaoc
         # import os
         #
         # for root, dirs, files in os.walk("solutions", topdown=True):
-        #   dirs[:] = sorted(dirs, key=int) # sort dirs by year
-        #   for f in sorted(files):
-        #       if f.endswith(".cpp"):
-        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        #     dirs[:] = sorted(dirs, key=int) # sort dirs by year
+        #     for f in sorted(files):
+        #         if f.endswith(".cpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "solutions/2024/day01.cpp"
+        "solutions/2024/day02.cpp"
         "solutions/2025/day01.cpp"
         "solutions/2025/day02.cpp"
         "solutions/2025/day03.cpp"
@@ -67,10 +72,10 @@ target_sources(libaoc
         # import os
         #
         # for root, dirs, files in os.walk("solutions", topdown=True):
-        #   dirs[:] = sorted(dirs, key=int) # sort dirs by year
-        #   for f in sorted(files):
-        #       if f.endswith(".hpp"):
-        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        #     dirs[:] = sorted(dirs, key=int) # sort dirs by year
+        #     for f in sorted(files):
+        #         if f.endswith(".hpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "solutions/prototype_macro.hpp"
         "solutions/2024/prototypes.hpp"
@@ -83,15 +88,15 @@ target_sources(libaoc
         # import os
         #
         # for root, dirs, files in os.walk("utils"):
-        #   for f in sorted(files):
-        #       if f.endswith(".cpp"):
-        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        #     for f in sorted(files):
+        #         if f.endswith(".cpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "utils/io.cpp"
         # [[[end]]]
 
         PUBLIC
-        FILE_SET utils
+        FILE_SET utils_headers
         TYPE HEADERS
         FILES
         # [[[cog
@@ -99,9 +104,9 @@ target_sources(libaoc
         # import os
         #
         # for root, dirs, files in os.walk("utils"):
-        #   for f in sorted(files):
-        #       if f.endswith(".hpp"):
-        #           cog.outl(f"\"{os.path.join(root, f)}\"")
+        #     for f in sorted(files):
+        #         if f.endswith(".hpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "utils/grid.hpp"
         "utils/io.hpp"
@@ -109,27 +114,71 @@ target_sources(libaoc
         "utils/parse.hpp"
         "utils/print.hpp"
         "utils/sequence.hpp"
-        "utils/std.hpp"
         "utils/utils.hpp"
         "utils/vec.hpp"
+        # [[[end]]]
+
+        PRIVATE
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("thirdparty"):
+        #     for f in sorted(files):
+        #         if f.endswith(".cpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
+        "thirdparty/html2md/html2md.cpp"
+        "thirdparty/html2md/table.cpp"
         # [[[end]]]
 
         PUBLIC
         FILE_SET thirdparty
         TYPE HEADERS
+        BASE_DIRS thirdparty
         FILES
-        "thirdparty/argparse.hpp"
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("thirdparty"):
+        #     for f in sorted(files):
+        #         if f.endswith(".hpp") or f.endswith(".h"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
+        "thirdparty/ctre.hpp"
         "thirdparty/dotenv.h"
+        "thirdparty/html2md/html2md.h"
+        "thirdparty/html2md/table.h"
+        "thirdparty/argparse/argparse.hpp"
+        # [[[end]]]
 )
 
-target_link_libraries(libaoc PUBLIC fmt::fmt ctre Boost::container_hash cpr::cpr)
+target_sources(aoc
+        PRIVATE
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for p in os.listdir("."):
+        #     if os.path.isfile(p) and p.endswith(".cpp"):
+        #         cog.outl(f"\"{p}\"")
+        # ]]]
+        "aoc.cpp"
+        # [[[end]]]
 
-add_executable(aoc
-        aoc.cpp
-        src/aoc_proxy.cpp
-        src/aoc_proxy.hpp
-        src/solution_map.cpp
-        src/solution_map.hpp
+        # [[[cog
+        # import cog
+        # import os
+        #
+        # for root, dirs, files in os.walk("src", topdown=True):
+        #     for f in sorted(files):
+        #         if f.endswith(".hpp") or f.endswith(".cpp"):
+        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        # ]]]
+        "src/aoc_proxy.cpp"
+        "src/aoc_proxy.hpp"
+        "src/solution_map.cpp"
+        "src/solution_map.hpp"
+        # [[[end]]]
 )
-target_compile_features(aoc PRIVATE cxx_std_23)
-target_link_libraries(aoc PRIVATE libaoc)

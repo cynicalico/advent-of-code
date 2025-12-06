@@ -17,15 +17,14 @@ T parse(const std::string_view sv) {
         if (std::isdigit(c)) {
             parsing = true;
             result = result * 10 + (c - '0');
-        } else if (parsing)
-            break;
+        } else if (parsing) break;
     }
     return result;
 }
 
 template <typename T>
     requires std::is_integral_v<T> and std::is_unsigned_v<T>
-std::generator<T> iterate_parse(const std::string_view sv) {
+std::generator<T> iter_parse(const std::string_view sv) {
     T result = 0;
     bool parsing = false;
     for (const auto c : sv) {
@@ -53,8 +52,7 @@ T parse(const std::string_view sv) {
             if (!parsing && prev == '-') sign = -1;
             parsing = true;
             result = result * 10 + (c - '0');
-        } else if (parsing)
-            break;
+        } else if (parsing) break;
         prev = c;
     }
     return result * sign;
@@ -62,7 +60,7 @@ T parse(const std::string_view sv) {
 
 template <typename T>
     requires std::is_integral_v<T> and std::is_signed_v<T>
-std::generator<T> iterate_parse(const std::string_view sv) {
+std::generator<T> iter_parse(const std::string_view sv) {
     T result = 0;
     T sign = 1;
     char prev = '\0';
@@ -87,10 +85,9 @@ template <typename T, std::size_t N>
     requires std::is_integral_v<T>
 auto parse_n(const std::string_view sv) {
     std::array<T, N> values;
-    auto gen = iterate_parse<T>(sv);
+    auto gen = iter_parse<T>(sv);
     auto it = gen.begin();
-    for (std::size_t i = 0; i < N && it != gen.end(); ++i, ++it)
-        values[i] = *it;
+    for (std::size_t i = 0; i < N && it != gen.end(); ++i, ++it) values[i] = *it;
     return std::tuple_cat(values);
 }
 } // namespace utils

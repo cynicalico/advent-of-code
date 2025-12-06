@@ -3,11 +3,6 @@
 My solutions to [Advent of Code](https://adventofcode.com/), provided as a command line runner and input/puzzle
 download/submission tool.
 
-## TODO
-
-- [ ] Add support for downloading puzzle text (html → md)
-- [x] Add support for submitting puzzle answers
-
 ## Usage
 
 See `aoc --help`
