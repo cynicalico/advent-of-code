@@ -6,4 +6,4 @@ input/
 puzzles/
 
 .env
-.last_dl.timestamp
+.throttle.timestamp
