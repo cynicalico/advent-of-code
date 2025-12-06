@@ -3,16 +3,20 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
+#include <filesystem>
+#include <functional>
+#include <ranges>
+#include <vector>
 
 AOC_NAMESPACE(2025, 03) {
 std::vector<BatteryBank> parse_input_file(const std::filesystem::path &input_path) {
     // clang-format off
-        return utils::iter_file_lines(input_path) |
-               std::views::transform([](const auto &line) {
-                   return line | std::views::transform([](const char c) { return c - '0'; }) |
-                                 std::ranges::to<BatteryBank>();
-               }) |
-               std::ranges::to<std::vector>();
+    return utils::iter_file_lines(input_path) |
+           std::views::transform([](const auto &line) {
+               return line | std::views::transform([](const char c) { return c - '0'; }) |
+                             std::ranges::to<BatteryBank>();
+           }) |
+           std::ranges::to<std::vector>();
     // clang-format on
 }
 

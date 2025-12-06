@@ -3,6 +3,12 @@
  */
 
 #include "solutions/2024/prototypes.hpp"
+#include <cstdint>
+#include <filesystem>
+#include <functional>
+#include <ranges>
+#include <unordered_map>
+#include <vector>
 
 AOC_NAMESPACE(2024, 01) {
 std::tuple<List, List> parse_input_file(const std::filesystem::path &input_path) {

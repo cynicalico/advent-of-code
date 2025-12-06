@@ -124,6 +124,12 @@ target_sources(libaoc
 
 target_link_libraries(libaoc PUBLIC fmt::fmt ctre Boost::container_hash cpr::cpr)
 
-add_executable(aoc aoc.cpp aoc_proxy.hpp)
+add_executable(aoc
+        aoc.cpp
+        src/aoc_proxy.cpp
+        src/aoc_proxy.hpp
+        src/solution_map.cpp
+        src/solution_map.hpp
+)
 target_compile_features(aoc PRIVATE cxx_std_23)
 target_link_libraries(aoc PRIVATE libaoc)

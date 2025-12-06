@@ -3,6 +3,12 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
+#include <cmath>
+#include <cstdint>
+#include <filesystem>
+#include <functional>
+#include <ranges>
+#include <set>
 
 AOC_NAMESPACE(2025, 02) {
 std::vector<Range> parse_input_file(const std::filesystem::path &input_path) {
@@ -12,8 +18,7 @@ std::vector<Range> parse_input_file(const std::filesystem::path &input_path) {
             const auto next_po10 = std::pow(10, utils::num_digits(start));
             ranges.emplace_back(start, next_po10 - 1);
             ranges.emplace_back(next_po10, end);
-        } else
-            ranges.emplace_back(start, end);
+        } else ranges.emplace_back(start, end);
     }
     return ranges;
 }

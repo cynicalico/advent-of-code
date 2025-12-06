@@ -1,3 +1,3 @@
 cog:
     cog -r CMakeLists.txt
-    cog -r runner.cpp
+    cog -r src/solution_map.cpp

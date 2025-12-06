@@ -3,16 +3,20 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
+#include <cmath>
+#include <filesystem>
+#include <ranges>
+#include <vector>
 
 AOC_NAMESPACE(2025, 01) {
 std::vector<int> parse_input_file(const std::filesystem::path &input_path) {
     // clang-format off
-        return utils::iter_file_lines(input_path) |
-               std::views::transform([](const auto &line) {
-                   const auto amount = utils::parse<int>(line);
-                   return line[0] == 'L' ? -amount : amount;
-               }) |
-               std::ranges::to<std::vector>();
+    return utils::iter_file_lines(input_path) |
+           std::views::transform([](const auto &line) {
+               const auto amount = utils::parse<int>(line);
+               return line[0] == 'L' ? -amount : amount;
+           }) |
+           std::ranges::to<std::vector>();
     // clang-format on
 }
 

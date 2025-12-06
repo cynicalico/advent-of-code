@@ -1,38 +1,14 @@
-#pragma once
-
-#include "utils/utils.hpp"
+#include "src/aoc_proxy.hpp"
+#include "utils/io.hpp"
 #include <cpr/cpr.h>
 #include <filesystem>
+#include <fmt/format.h>
 #include <fstream>
-#include <string>
-
-class AocProxy {
-    static const char *USER_AGENT;
-
-    static const char *THROTTLE_FILE;
-    static constexpr int THROTTLE_SECONDS = 180;
-
-public:
-    static bool should_throttle();
-    static void write_throttle_file();
-
-    static bool dl_input(int year, int day, bool force);
-    static bool dl_puzzle(int year, int day, bool force);
-
-    static bool submit_answer(int year, int day, int part, const std::string &answer);
-
-    static bool check_year_day(int year, int day);
-
-private:
-    static std::int64_t seconds_since_epoch_();
-
-    static const char *parse_answer_response_(const std::string &response);
-};
 
 const char *AocProxy::USER_AGENT = "github.com/cynicalico/advent-of-code by cynicalico@pm.me";
 const char *AocProxy::THROTTLE_FILE = ".last_dl.timestamp";
 
-inline bool AocProxy::should_throttle() {
+bool AocProxy::should_throttle() {
     if (std::filesystem::exists(THROTTLE_FILE)) {
         const auto timestamp = utils::read_file(THROTTLE_FILE);
         const auto seconds_since_last_dl = seconds_since_epoch_() - std::stoll(timestamp);
@@ -41,9 +17,9 @@ inline bool AocProxy::should_throttle() {
     return false;
 }
 
-inline void AocProxy::write_throttle_file() { std::ofstream(THROTTLE_FILE) << seconds_since_epoch_(); }
+void AocProxy::write_throttle_file() { std::ofstream(THROTTLE_FILE) << seconds_since_epoch_(); }
 
-inline bool AocProxy::dl_input(int year, int day, bool force) {
+bool AocProxy::dl_input(int year, int day, bool force) {
     const auto filename = fmt::format("input/{}/day{:02}.txt", year, day);
     if (!force && std::filesystem::exists(filename)) {
         fmt::print("Input already downloaded, use --force to override\n");
@@ -81,7 +57,7 @@ inline bool AocProxy::dl_input(int year, int day, bool force) {
     return true;
 }
 
-inline bool AocProxy::dl_puzzle(int year, int day, bool force) {
+bool AocProxy::dl_puzzle(int year, int day, bool force) {
     if (should_throttle()) {
         fmt::print("Outbound traffic limited to once per {} minute(s)\n", THROTTLE_SECONDS / 60);
         return false;
@@ -91,7 +67,7 @@ inline bool AocProxy::dl_puzzle(int year, int day, bool force) {
     return true;
 }
 
-inline bool AocProxy::submit_answer(int year, int day, int part, const std::string &answer) {
+bool AocProxy::submit_answer(int year, int day, int part, const std::string &answer) {
     const auto url = fmt::format("https://adventofcode.com/{}/day/{}/answer", year, day);
 
     const char *session_token = std::getenv("AOC_SESSION");
@@ -130,7 +106,7 @@ inline bool AocProxy::submit_answer(int year, int day, int part, const std::stri
     return false;
 }
 
-inline bool AocProxy::check_year_day(int year, int day) {
+bool AocProxy::check_year_day(int year, int day) {
     if (year < 2015 || year > 2025) {
         fmt::print("Invalid year: {}\n", year);
         return false;
@@ -144,13 +120,13 @@ inline bool AocProxy::check_year_day(int year, int day) {
     return true;
 }
 
-inline std::int64_t AocProxy::seconds_since_epoch_() {
+std::int64_t AocProxy::seconds_since_epoch_() {
     const auto now = std::chrono::system_clock::now();
     const auto duration = now.time_since_epoch();
     return std::chrono::duration_cast<std::chrono::seconds>(duration).count();
 }
 
-inline const char *AocProxy::parse_answer_response_(const std::string &text) {
+const char *AocProxy::parse_answer_response_(const std::string &text) {
     if (text.contains("That's the right answer")) return "✓ Correct! That's the right answer!";
 
     if (text.contains("Did you already complete it")) return "⚠ You've already completed this part.";

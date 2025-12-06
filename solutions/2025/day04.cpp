@@ -3,6 +3,11 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
+#include <cstdint>
+#include <filesystem>
+#include <ranges>
+#include <utility>
+#include <vector>
 
 AOC_NAMESPACE(2025, 04) {
 Grid parse_input_file(const std::filesystem::path &input_path) {

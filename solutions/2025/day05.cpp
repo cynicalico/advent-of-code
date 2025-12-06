@@ -3,6 +3,10 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
+#include <cstdint>
+#include <filesystem>
+#include <ranges>
+#include <vector>
 
 AOC_NAMESPACE(2025, 05) {
 Input parse_input_file(const std::filesystem::path &input_path) {
@@ -15,10 +19,8 @@ Input parse_input_file(const std::filesystem::path &input_path) {
             parsing_ranges = false;
             continue;
         }
-        if (parsing_ranges)
-            ranges.emplace_back(utils::parse_n<std::uint64_t, 2>(line));
-        else
-            ids.emplace_back(utils::parse<std::uint64_t>(line));
+        if (parsing_ranges) ranges.emplace_back(utils::parse_n<std::uint64_t, 2>(line));
+        else ids.emplace_back(utils::parse<std::uint64_t>(line));
     }
 
     std::ranges::sort(ranges, [](const auto &a, const auto &b) { return a.lo < b.lo; });
@@ -28,8 +30,7 @@ Input parse_input_file(const std::filesystem::path &input_path) {
         if (const auto &[prev_lo, prev_hi] = combined_ranges.back(); prev_hi >= next_lo) {
             if (prev_hi >= next_hi) continue; // interval already accounted for, skip it
             combined_ranges.back().hi = next_hi;
-        } else
-            combined_ranges.emplace_back(next_lo, next_hi);
+        } else combined_ranges.emplace_back(next_lo, next_hi);
     }
 
     return {combined_ranges, ids};
