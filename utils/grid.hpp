@@ -36,7 +36,10 @@ private:
 };
 
 template <typename T>
-Grid2D<T>::Grid2D() = default;
+Grid2D<T>::Grid2D()
+    : width_(0),
+      height_(0),
+      data_() {}
 
 template <typename T>
 Grid2D<T>::Grid2D(std::size_t width)
@@ -61,8 +64,7 @@ Grid2D<T>::Grid2D(const std::vector<std::vector<T>> &data)
     : width_(data[0].size()),
       height_(data.size()) {
     data_.reserve(width_ * height_);
-    for (const auto &row : data)
-        data_.append_range(row);
+    for (const auto &row : data) data_.append_range(row);
 }
 
 template <typename T>
@@ -73,6 +75,7 @@ bool Grid2D<T>::in_bounds(Vec2<U> v) const {
 
 template <typename T>
 void Grid2D<T>::add_row(const std::vector<T> &row) {
+    if (data_.empty()) width_ = row.size();
     assert(row.size() == width_);
     data_.append_range(row);
     ++height_;

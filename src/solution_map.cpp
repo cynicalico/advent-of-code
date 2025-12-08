@@ -46,6 +46,7 @@ std::map<int, std::map<int, Solution>> solution_map() {
             {04, SOLUTION(2025, 04)},
             {05, SOLUTION(2025, 05)},
             {06, SOLUTION(2025, 06)},
+            {07, SOLUTION(2025, 07)},
         }},
         //[[[end]]]
         };

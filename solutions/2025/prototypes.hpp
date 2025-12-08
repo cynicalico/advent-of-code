@@ -37,3 +37,9 @@ SOLUTION_PROTOTYPES((Input), (std::size_t), (std::size_t))
 AOC_NAMESPACE(2025, 06) {
 SOLUTION_PROTOTYPES((std::vector<std::string>), (std::uint64_t), (std::uint64_t))
 }
+
+AOC_NAMESPACE(2025, 07) {
+using Manifold = utils::Grid2D<std::uint8_t>;
+using Pos = utils::Vec2<std::size_t>;
+SOLUTION_PROTOTYPES((std::pair<std::uint32_t, std::uint64_t>), (std::uint32_t), (std::uint64_t))
+}
