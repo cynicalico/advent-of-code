@@ -61,6 +61,7 @@ target_sources(libaoc
         "solutions/2025/day03.cpp"
         "solutions/2025/day04.cpp"
         "solutions/2025/day05.cpp"
+        "solutions/2025/day06.cpp"
         # [[[end]]]
 
         PUBLIC
@@ -93,6 +94,7 @@ target_sources(libaoc
         #             cog.outl(f"\"{os.path.join(root, f)}\"")
         # ]]]
         "utils/io.cpp"
+        "utils/split.cpp"
         # [[[end]]]
 
         PUBLIC
@@ -114,6 +116,7 @@ target_sources(libaoc
         "utils/parse.hpp"
         "utils/print.hpp"
         "utils/sequence.hpp"
+        "utils/split.hpp"
         "utils/utils.hpp"
         "utils/vec.hpp"
         # [[[end]]]

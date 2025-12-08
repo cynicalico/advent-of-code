@@ -33,3 +33,7 @@ using Range = utils::Interval<std::uint64_t>;
 using Input = std::pair<std::vector<Range>, std::vector<std::uint64_t>>;
 SOLUTION_PROTOTYPES((Input), (std::size_t), (std::size_t))
 }
+
+AOC_NAMESPACE(2025, 06) {
+SOLUTION_PROTOTYPES((std::vector<std::string>), (std::uint64_t), (std::uint64_t))
+}
