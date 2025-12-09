@@ -3,13 +3,11 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
-#include <cmath>
-#include <filesystem>
-#include <ranges>
-#include <vector>
+#include "utils/utils.hpp"
 
-AOC_NAMESPACE(2025, 01) {
-std::vector<int> parse_input_file(const std::filesystem::path &input_path) {
+SOLUTION(2025, 01, (std::vector<int>), (int), (int))
+
+std::vector<int> aoc2025::day01::parse_input_file(const std::filesystem::path &input_path) {
     // clang-format off
     return utils::iter_file_lines(input_path) |
            std::views::transform([](const auto &line) {
@@ -20,7 +18,7 @@ std::vector<int> parse_input_file(const std::filesystem::path &input_path) {
     // clang-format on
 }
 
-int p1(std::vector<int> &input) {
+int aoc2025::day01::p1(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -30,7 +28,7 @@ int p1(std::vector<int> &input) {
     return ans;
 }
 
-int p2(std::vector<int> &input) {
+int aoc2025::day01::p2(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -43,5 +41,4 @@ int p2(std::vector<int> &input) {
         if (position == 0) ans++;
     }
     return ans;
-}
 }

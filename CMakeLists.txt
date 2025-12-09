@@ -10,28 +10,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-set(BOOST_INCLUDE_LIBRARIES container_hash)
-set(BOOST_ENABLE_CMAKE ON)
-FetchContent_Declare(
-        boost
-        URL https://github.com/boostorg/boost/releases/download/boost-1.89.0/boost-1.89.0-cmake.7z
-        URL_HASH SHA256=252149f583054515b10688855b24ca1c16072b5118e603b8fe017894d319c262
-        USES_TERMINAL_DOWNLOAD TRUE
-        DOWNLOAD_NO_EXTRACT FALSE
-        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-)
-FetchContent_MakeAvailable(boost)
-
-FetchContent_Declare(
-        cpr
-        GIT_REPOSITORY https://github.com/libcpr/cpr
-        GIT_TAG 1.14.1
-)
-FetchContent_MakeAvailable(cpr)
-
 add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
-target_link_libraries(libaoc PUBLIC fmt::fmt Boost::container_hash cpr::cpr)
+target_link_libraries(libaoc PUBLIC fmt::fmt)
 
 add_executable(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)
@@ -47,12 +28,13 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("solutions", topdown=True):
         #     dirs[:] = sorted(dirs, key=int) # sort dirs by year
         #     for f in sorted(files):
         #         if f.endswith(".cpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "solutions/2024/day01.cpp"
         "solutions/2024/day02.cpp"
@@ -72,12 +54,13 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("solutions", topdown=True):
         #     dirs[:] = sorted(dirs, key=int) # sort dirs by year
         #     for f in sorted(files):
         #         if f.endswith(".hpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "solutions/prototype_macro.hpp"
         "solutions/2024/prototypes.hpp"
@@ -88,11 +71,12 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("utils"):
         #     for f in sorted(files):
         #         if f.endswith(".cpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "utils/io.cpp"
         "utils/split.cpp"
@@ -105,11 +89,12 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("utils"):
         #     for f in sorted(files):
         #         if f.endswith(".hpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "utils/grid.hpp"
         "utils/io.hpp"
@@ -118,6 +103,7 @@ target_sources(libaoc
         "utils/print.hpp"
         "utils/sequence.hpp"
         "utils/split.hpp"
+        "utils/std.hpp"
         "utils/utils.hpp"
         "utils/vec.hpp"
         # [[[end]]]
@@ -126,14 +112,13 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("thirdparty"):
         #     for f in sorted(files):
         #         if f.endswith(".cpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
-        "thirdparty/html2md/html2md.cpp"
-        "thirdparty/html2md/table.cpp"
         # [[[end]]]
 
         PUBLIC
@@ -144,16 +129,15 @@ target_sources(libaoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("thirdparty"):
         #     for f in sorted(files):
         #         if f.endswith(".hpp") or f.endswith(".h"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "thirdparty/ctre.hpp"
-        "thirdparty/dotenv.h"
-        "thirdparty/html2md/html2md.h"
-        "thirdparty/html2md/table.h"
+        "thirdparty/hash_combine.hpp"
         "thirdparty/argparse/argparse.hpp"
         # [[[end]]]
 )
@@ -163,10 +147,11 @@ target_sources(aoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for p in os.listdir("."):
         #     if os.path.isfile(p) and p.endswith(".cpp"):
-        #         cog.outl(f"\"{p}\"")
+        #         cog.outl(f"\"{Path(p).as_posix()}\"")
         # ]]]
         "aoc.cpp"
         # [[[end]]]
@@ -174,14 +159,13 @@ target_sources(aoc
         # [[[cog
         # import cog
         # import os
+        # from pathlib import Path
         #
         # for root, dirs, files in os.walk("src", topdown=True):
         #     for f in sorted(files):
         #         if f.endswith(".hpp") or f.endswith(".cpp"):
-        #             cog.outl(f"\"{os.path.join(root, f)}\"")
+        #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
-        "src/aoc_proxy.cpp"
-        "src/aoc_proxy.hpp"
         "src/solution_map.cpp"
         "src/solution_map.hpp"
         # [[[end]]]

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/container_hash/hash.hpp>
+#include "thirdparty/hash_combine.hpp"
 #include <type_traits>
 
 namespace utils {
@@ -93,8 +93,8 @@ template <typename T>
 struct std::hash<utils::Vec2<T>> {
     std::size_t operator()(const utils::Vec2<T> &v) const noexcept {
         std::size_t seed = 0;
-        boost::hash_combine(seed, std::hash<T>{}(v.x));
-        boost::hash_combine(seed, std::hash<T>{}(v.y));
+        ::hash_combine(seed, v.x);
+        ::hash_combine(seed, v.y);
         return seed;
     }
 };
@@ -103,9 +103,9 @@ template <typename T>
 struct std::hash<utils::Vec3<T>> {
     std::size_t operator()(const utils::Vec3<T> &v) const noexcept {
         std::size_t seed = 0;
-        boost::hash_combine(seed, std::hash<T>{}(v.x));
-        boost::hash_combine(seed, std::hash<T>{}(v.y));
-        boost::hash_combine(seed, std::hash<T>{}(v.z));
+        ::hash_combine(seed, v.x);
+        ::hash_combine(seed, v.y);
+        ::hash_combine(seed, v.z);
         return seed;
     }
 };
@@ -114,10 +114,10 @@ template <typename T>
 struct std::hash<utils::Vec4<T>> {
     std::size_t operator()(const utils::Vec4<T> &v) const noexcept {
         std::size_t seed = 0;
-        boost::hash_combine(seed, std::hash<T>{}(v.x));
-        boost::hash_combine(seed, std::hash<T>{}(v.y));
-        boost::hash_combine(seed, std::hash<T>{}(v.z));
-        boost::hash_combine(seed, std::hash<T>{}(v.w));
+        ::hash_combine(seed, v.x);
+        ::hash_combine(seed, v.y);
+        ::hash_combine(seed, v.z);
+        ::hash_combine(seed, v.w);
         return seed;
     }
 };

@@ -2,6 +2,9 @@
 
 #include "utils/vec.hpp"
 #include <vector>
+#include <type_traits>
+#include <concepts>
+#include <cassert>
 
 namespace utils {
 template <typename T>

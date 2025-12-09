@@ -3,13 +3,15 @@
  */
 
 #include "solutions/2025/prototypes.hpp"
-#include <filesystem>
+#include "utils/utils.hpp"
 
-AOC_NAMESPACE(2025, 06) {
-std::vector<std::string> parse_input_file(const std::filesystem::path &input_path) {
+SOLUTION(2025, 06, (std::vector<std::string>), (std::uint64_t), (std::uint64_t))
+
+std::vector<std::string> aoc2025::day06::parse_input_file(const std::filesystem::path &input_path) {
     return utils::iter_file_lines(input_path) | std::ranges::to<std::vector>();
 }
 
+namespace aoc2025::day06 {
 std::uint64_t do_op(const std::vector<std::uint64_t> buf, char op) {
     switch (op) {
     case '+': return std::ranges::fold_left_first(buf, std::plus{}).value();
@@ -17,8 +19,9 @@ std::uint64_t do_op(const std::vector<std::uint64_t> buf, char op) {
     default: std::unreachable();
     }
 }
+} // namespace aoc2025::day06
 
-std::uint64_t p1(std::vector<std::string> &input) {
+std::uint64_t aoc2025::day06::p1(std::vector<std::string> &input) {
     std::vector<std::vector<std::uint64_t>> numbers;
     for (const auto &line : input | std::views::take(input.size() - 1))
         numbers.emplace_back(utils::iter_parse<std::uint64_t>(line) | std::ranges::to<std::vector>());
@@ -36,7 +39,7 @@ std::uint64_t p1(std::vector<std::string> &input) {
     return ans;
 }
 
-std::uint64_t p2(std::vector<std::string> &input) {
+std::uint64_t aoc2025::day06::p2(std::vector<std::string> &input) {
     std::uint64_t ans = 0;
     std::size_t i = 0;
     while (i < input[0].size()) {
@@ -59,5 +62,4 @@ std::uint64_t p2(std::vector<std::string> &input) {
         ans += do_op(buf, op);
     }
     return ans;
-}
 }
