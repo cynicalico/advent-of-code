@@ -2,7 +2,7 @@
  * https://adventofcode.com/2025/day/5
  */
 
-#include "solutions/2025/prototypes.hpp"
+#include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
 
 using Range = utils::Interval<std::uint64_t>;
@@ -10,7 +10,7 @@ using Input = std::pair<std::vector<Range>, std::vector<std::uint64_t>>;
 
 SOLUTION(2025, 05, (Input), (std::size_t), (std::size_t))
 
-Input aoc2025::day05::parse_input_file(const std::filesystem::path &input_path) {
+Input AOC_NS(2025, 05)::parse_input(const std::filesystem::path &input_path) {
     std::vector<Range> ranges;
     std::vector<std::uint64_t> ids;
 
@@ -37,13 +37,13 @@ Input aoc2025::day05::parse_input_file(const std::filesystem::path &input_path) 
     return {combined_ranges, ids};
 }
 
-std::size_t aoc2025::day05::p1(Input &input) {
+std::size_t AOC_NS(2025, 05)::p1(Input &input) {
     return std::ranges::count_if(input.second, [&input](const auto &id) {
         return std::ranges::any_of(input.first, [&id](const auto &range) { return range.contains(id); });
     });
 }
 
-std::size_t aoc2025::day05::p2(Input &input) {
+std::size_t AOC_NS(2025, 05)::p2(Input &input) {
     return std::ranges::fold_left(
             input.first, 0, [](std::size_t count, const auto &range) { return count + range.size(); });
 }

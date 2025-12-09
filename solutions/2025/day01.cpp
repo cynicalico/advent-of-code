@@ -2,12 +2,12 @@
  * https://adventofcode.com/2025/day/1
  */
 
-#include "solutions/2025/prototypes.hpp"
+#include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
 
 SOLUTION(2025, 01, (std::vector<int>), (int), (int))
 
-std::vector<int> aoc2025::day01::parse_input_file(const std::filesystem::path &input_path) {
+std::vector<int> AOC_NS(2025, 01)::parse_input(const std::filesystem::path &input_path) {
     // clang-format off
     return utils::iter_file_lines(input_path) |
            std::views::transform([](const auto &line) {
@@ -18,7 +18,7 @@ std::vector<int> aoc2025::day01::parse_input_file(const std::filesystem::path &i
     // clang-format on
 }
 
-int aoc2025::day01::p1(std::vector<int> &input) {
+int AOC_NS(2025, 01)::p1(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {
@@ -28,7 +28,7 @@ int aoc2025::day01::p1(std::vector<int> &input) {
     return ans;
 }
 
-int aoc2025::day01::p2(std::vector<int> &input) {
+int AOC_NS(2025, 01)::p2(std::vector<int> &input) {
     int ans = 0;
     int position = 50;
     for (const auto amount : input) {

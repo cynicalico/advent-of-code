@@ -2,7 +2,7 @@
  * https://adventofcode.com/2025/day/3
  */
 
-#include "solutions/2025/prototypes.hpp"
+#include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
 
 using Joltage = std::uint64_t;
@@ -10,7 +10,7 @@ using BatteryBank = std::vector<Joltage>;
 
 SOLUTION(2025, 03, (std::vector<BatteryBank>), (Joltage), (Joltage))
 
-std::vector<BatteryBank> aoc2025::day03::parse_input_file(const std::filesystem::path &input_path) {
+std::vector<BatteryBank> AOC_NS(2025, 03)::parse_input(const std::filesystem::path &input_path) {
     // clang-format off
     return utils::iter_file_lines(input_path) |
            std::views::transform([](const auto &line) {
@@ -36,12 +36,12 @@ Joltage find_max_joltage(const BatteryBank &bank, const std::size_t battery_coun
 }
 } // namespace aoc2025::day03
 
-Joltage aoc2025::day03::p1(std::vector<BatteryBank> &input) {
+Joltage AOC_NS(2025, 03)::p1(std::vector<BatteryBank> &input) {
     const auto max_joltages = input | std::views::transform([](const auto &bank) { return find_max_joltage(bank, 2); });
     return std::ranges::fold_left(max_joltages, 0, std::plus{});
 }
 
-Joltage aoc2025::day03::p2(std::vector<BatteryBank> &input) {
+Joltage AOC_NS(2025, 03)::p2(std::vector<BatteryBank> &input) {
     const auto max_joltages =
             input | std::views::transform([](const auto &bank) { return find_max_joltage(bank, 12); });
     return std::ranges::fold_left(max_joltages, 0, std::plus{});

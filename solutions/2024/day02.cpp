@@ -2,14 +2,14 @@
  * https://adventofcode.com/2024/day/2
  */
 
-#include "solutions/2024/prototypes.hpp"
+#include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
 
 using Report = std::vector<std::int32_t>;
 
 SOLUTION(2024, 02, (std::vector<Report>), (std::uint32_t), (std::uint32_t))
 
-std::vector<Report> aoc2024::day02::parse_input_file(const std::filesystem::path &input_path) {
+std::vector<Report> AOC_NS(2024, 02)::parse_input(const std::filesystem::path &input_path) {
     // clang-format off
     return utils::iter_file_lines(input_path) |
            std::views::transform([](const auto &line) {
@@ -47,6 +47,8 @@ bool is_safe_dampened(const Report &report) {
 }
 } // namespace aoc2024::day02
 
-std::uint32_t aoc2024::day02::p1(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe); }
+std::uint32_t AOC_NS(2024, 02)::p1(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe); }
 
-std::uint32_t aoc2024::day02::p2(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe_dampened); }
+std::uint32_t AOC_NS(2024, 02)::p2(std::vector<Report> &input) {
+    return std::ranges::count_if(input, is_safe_dampened);
+}

@@ -1,7 +1,6 @@
 #include "src/solution_map.hpp"
 
-#include "solutions/2024/prototypes.hpp"
-#include "solutions/2025/prototypes.hpp"
+#include "solutions/prototypes.hpp"
 
 // clang-format off
 std::map<int, std::map<int, Solution>> solution_map() {
