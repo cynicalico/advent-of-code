@@ -5,7 +5,7 @@ cog:
     cog -r solutions/prototypes.hpp
     cog -r src/solution_map.cpp
 
-config $preset:
+config $preset: cog
     cmake --preset {{ preset }}
 
 build $preset:

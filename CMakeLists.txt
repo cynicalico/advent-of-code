@@ -10,6 +10,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
+set(CMAKE_CXX_STANDARD 23)
+
 add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
 target_link_libraries(libaoc PUBLIC fmt::fmt)
@@ -46,6 +48,7 @@ target_sources(libaoc
         "solutions/2025/day06.cpp"
         "solutions/2025/day07.cpp"
         "solutions/2025/day08.cpp"
+        "solutions/2025/day09.cpp"
         # [[[end]]]
 
         PUBLIC
