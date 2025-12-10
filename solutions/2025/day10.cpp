@@ -10,13 +10,13 @@ struct Machine {
     std::vector<std::uint64_t> buttons{};
 };
 
-constexpr ctll::fixed_string pieces_pat = R"(\[([\.#]+)\] ([\(\) \d,]+) \{([\d,]+)\})";
-
 SOLUTION(2025, 10, (std::vector<Machine>), (std::uint64_t), (std::uint64_t))
+
+constexpr ctll::fixed_string PIECES_PAT = R"(\[([\.#]+)\] ([\(\) \d,]+) \{([\d,]+)\})";
 
 std::vector<Machine> AOC_NS(2025, 10)::parse_input(const std::filesystem::path &input_path) {
     std::vector<Machine> machines;
-    for (const auto &[_, target, buttons, joltage_reqs] : utils::iter_file_regex<pieces_pat>(input_path)) {
+    for (const auto &[_, target, buttons, joltage_reqs] : utils::iter_file_regex<PIECES_PAT>(input_path)) {
         Machine m;
         for (const auto &c : target) {
             m.target <<= 1;
