@@ -4,7 +4,6 @@
 
 #include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
-#include <queue>
 
 struct Machine {
     std::uint64_t target{0};
