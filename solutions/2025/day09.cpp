@@ -19,7 +19,7 @@ namespace AOC_NS(2025, 9) {
 std::int64_t find_largest_rectangle(const std::vector<Pos> &input) {
     std::int64_t max = 0;
     for (std::size_t i = 0; i < input.size(); ++i)
-        for (std::size_t j = 0; j < input.size(); ++j)
+        for (std::size_t j = i + 1; j < input.size(); ++j)
             max = std::max(max, (std::abs(input[j].x - input[i].x) + 1) * (std::abs(input[j].y - input[i].y) + 1));
     return max;
 }
