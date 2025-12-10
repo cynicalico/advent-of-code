@@ -101,6 +101,7 @@ target_sources(libaoc
         "utils/math.hpp"
         "utils/parse.hpp"
         "utils/print.hpp"
+        "utils/priority_queue.hpp"
         "utils/sequence.hpp"
         "utils/split.hpp"
         "utils/std.hpp"

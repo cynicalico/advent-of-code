@@ -2,7 +2,7 @@
 
 #include "thirdparty/hash_combine.hpp"
 #include <cmath>
-#include <type_traits>
+#include <utility>
 
 namespace utils {
 template <typename T>

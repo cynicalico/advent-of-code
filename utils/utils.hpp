@@ -5,6 +5,7 @@
 #include "utils/math.hpp"
 #include "utils/parse.hpp"
 #include "utils/print.hpp"
+#include "utils/priority_queue.hpp"
 #include "utils/sequence.hpp"
 #include "utils/split.hpp"
 #include "utils/std.hpp"

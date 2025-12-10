@@ -15,17 +15,16 @@ std::pair<std::size_t, std::int64_t> AOC_NS(2025, 8)::parse_input(const std::fil
             std::views::transform([](const auto &t) { return Pos(std::get<0>(t), std::get<1>(t), std::get<2>(t)); }) |
             std::ranges::to<std::vector>();
 
-    std::vector<std::pair<std::pair<std::size_t, std::size_t>, std::int64_t>> distances;
+    utils::PriorityQueue<std::pair<std::size_t, std::size_t>, std::greater> pq;
     for (std::size_t i = 0; i < boxes.size(); ++i)
         for (std::size_t j = i + 1; j < boxes.size(); ++j)
-            distances.emplace_back(std::make_pair(i, j), boxes[i].distance_sq(boxes[j]));
-    std::sort(distances.begin(), distances.end(), [](const auto &a, const auto &b) { return a.second < b.second; });
+            pq.push(boxes[i].distance_sq(boxes[j]), std::make_pair(i, j));
 
     std::vector<std::int64_t> circuits;
     for (std::size_t i = 0; i < boxes.size(); ++i) circuits.emplace_back(i);
 
     for (std::size_t i = 0; i < 1000; ++i) {
-        const auto &[from, to] = distances[i].first;
+        const auto [from, to] = pq.pop_value()->value;
         const auto tmp = circuits[to];
         for (std::size_t j = 0; j < circuits.size(); ++j)
             if (circuits[j] == tmp) circuits[j] = circuits[from];
@@ -39,8 +38,8 @@ std::pair<std::size_t, std::int64_t> AOC_NS(2025, 8)::parse_input(const std::fil
     const auto p1_ans = counts_sorted[0] * counts_sorted[1] * counts_sorted[2];
 
     std::int64_t p2_ans;
-    for (std::size_t i = 1000; i < distances.size(); ++i) {
-        const auto &[from, to] = distances[i].first;
+    while (true) {
+        const auto [from, to] = pq.pop_value()->value;
         const auto tmp = circuits[to];
         bool all_match_from = true;
         for (std::size_t j = 0; j < circuits.size(); ++j) {
