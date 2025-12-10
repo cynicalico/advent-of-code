@@ -8,9 +8,9 @@
 using Manifold = utils::Grid2D<std::uint8_t>;
 using Pos = utils::Vec2<std::size_t>;
 
-SOLUTION(2025, 07, (std::pair<std::uint32_t, std::uint64_t>), (std::uint32_t), (std::uint64_t))
+SOLUTION(2025, 7, (std::pair<std::uint32_t, std::uint64_t>), (std::uint32_t), (std::uint64_t))
 
-std::pair<std::uint32_t, std::uint64_t> AOC_NS(2025, 07)::parse_input(const std::filesystem::path &input_path) {
+std::pair<std::uint32_t, std::uint64_t> AOC_NS(2025, 7)::parse_input(const std::filesystem::path &input_path) {
     Manifold manifold;
     Pos emitter_pos;
     for (const auto &[y, line] : utils::iter_file_lines(input_path) | std::views::enumerate) {
@@ -54,6 +54,6 @@ std::pair<std::uint32_t, std::uint64_t> AOC_NS(2025, 07)::parse_input(const std:
     return {p1_ans, p2_ans};
 }
 
-std::uint32_t AOC_NS(2025, 07)::p1(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<0>(input); }
+std::uint32_t AOC_NS(2025, 7)::p1(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<0>(input); }
 
-std::uint64_t AOC_NS(2025, 07)::p2(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<1>(input); }
+std::uint64_t AOC_NS(2025, 7)::p2(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<1>(input); }

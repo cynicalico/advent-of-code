@@ -63,8 +63,7 @@ target_sources(libaoc
         #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "solutions/prototype_macro.hpp"
-        "solutions/2024/prototypes.hpp"
-        "solutions/2025/prototypes.hpp"
+        "solutions/prototypes.hpp"
         # [[[end]]]
 
         PRIVATE

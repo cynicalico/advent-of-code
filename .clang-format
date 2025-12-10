@@ -27,5 +27,5 @@ AllowShortEnumsOnASingleLine: true
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 NamespaceIndentation: None
-FixNamespaceComments: true
+FixNamespaceComments: false
 ...

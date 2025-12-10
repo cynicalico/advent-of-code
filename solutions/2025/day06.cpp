@@ -5,13 +5,13 @@
 #include "solutions/prototypes.hpp"
 #include "utils/utils.hpp"
 
-SOLUTION(2025, 06, (std::vector<std::string>), (std::uint64_t), (std::uint64_t))
+SOLUTION(2025, 6, (std::vector<std::string>), (std::uint64_t), (std::uint64_t))
 
-std::vector<std::string> AOC_NS(2025, 06)::parse_input(const std::filesystem::path &input_path) {
+std::vector<std::string> AOC_NS(2025, 6)::parse_input(const std::filesystem::path &input_path) {
     return utils::iter_file_lines(input_path) | std::ranges::to<std::vector>();
 }
 
-namespace aoc2025::day06 {
+namespace AOC_NS(2025, 6) {
 std::uint64_t do_op(const std::vector<std::uint64_t> buf, char op) {
     switch (op) {
     case '+': return std::ranges::fold_left_first(buf, std::plus{}).value();
@@ -19,9 +19,9 @@ std::uint64_t do_op(const std::vector<std::uint64_t> buf, char op) {
     default: std::unreachable();
     }
 }
-} // namespace aoc2025::day06
+}
 
-std::uint64_t AOC_NS(2025, 06)::p1(std::vector<std::string> &input) {
+std::uint64_t AOC_NS(2025, 6)::p1(std::vector<std::string> &input) {
     std::vector<std::vector<std::uint64_t>> numbers;
     for (const auto &line : input | std::views::take(input.size() - 1))
         numbers.emplace_back(utils::iter_parse<std::uint64_t>(line) | std::ranges::to<std::vector>());
@@ -39,7 +39,7 @@ std::uint64_t AOC_NS(2025, 06)::p1(std::vector<std::string> &input) {
     return ans;
 }
 
-std::uint64_t AOC_NS(2025, 06)::p2(std::vector<std::string> &input) {
+std::uint64_t AOC_NS(2025, 6)::p2(std::vector<std::string> &input) {
     std::uint64_t ans = 0;
     std::size_t i = 0;
     while (i < input[0].size()) {

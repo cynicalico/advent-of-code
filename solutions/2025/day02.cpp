@@ -7,9 +7,9 @@
 
 using Range = std::tuple<std::uint64_t, std::uint64_t>;
 
-SOLUTION(2025, 02, (std::vector<Range>), (std::uint64_t), (std::uint64_t))
+SOLUTION(2025, 2, (std::vector<Range>), (std::uint64_t), (std::uint64_t))
 
-std::vector<Range> AOC_NS(2025, 02)::parse_input(const std::filesystem::path &input_path) {
+std::vector<Range> AOC_NS(2025, 2)::parse_input(const std::filesystem::path &input_path) {
     std::vector<Range> ranges;
     for (const auto &[start, end] : utils::iter_file_integer_tuples<std::uint64_t, 2>(input_path)) {
         if (utils::num_digits(end) > utils::num_digits(start)) {
@@ -21,7 +21,7 @@ std::vector<Range> AOC_NS(2025, 02)::parse_input(const std::filesystem::path &in
     return ranges;
 }
 
-namespace aoc2025::day02 {
+namespace AOC_NS(2025, 2) {
 void find_invalid(std::set<std::uint64_t> &invalid,
                   const std::uint64_t start,
                   const std::uint64_t end,
@@ -38,9 +38,9 @@ void find_invalid(std::set<std::uint64_t> &invalid,
         }
     }
 }
-} // namespace aoc2025::day02
+}
 
-std::uint64_t AOC_NS(2025, 02)::p1(std::vector<Range> &input) {
+std::uint64_t AOC_NS(2025, 2)::p1(std::vector<Range> &input) {
     std::set<std::uint64_t> invalid;
     for (const auto &[start, end] : input) {
         const auto digits = utils::num_digits(start);
@@ -50,7 +50,7 @@ std::uint64_t AOC_NS(2025, 02)::p1(std::vector<Range> &input) {
     return std::ranges::fold_left(invalid, 0, std::plus{});
 }
 
-std::uint64_t AOC_NS(2025, 02)::p2(std::vector<Range> &input) {
+std::uint64_t AOC_NS(2025, 2)::p2(std::vector<Range> &input) {
     std::set<std::uint64_t> invalid;
     for (const auto &[start, end] : input) find_invalid(invalid, start, end, 1);
     return std::ranges::fold_left(invalid, 0, std::plus{});

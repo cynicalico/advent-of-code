@@ -7,9 +7,9 @@
 
 using Report = std::vector<std::int32_t>;
 
-SOLUTION(2024, 02, (std::vector<Report>), (std::uint32_t), (std::uint32_t))
+SOLUTION(2024, 2, (std::vector<Report>), (std::uint32_t), (std::uint32_t))
 
-std::vector<Report> AOC_NS(2024, 02)::parse_input(const std::filesystem::path &input_path) {
+std::vector<Report> AOC_NS(2024, 2)::parse_input(const std::filesystem::path &input_path) {
     // clang-format off
     return utils::iter_file_lines(input_path) |
            std::views::transform([](const auto &line) {
@@ -19,7 +19,7 @@ std::vector<Report> AOC_NS(2024, 02)::parse_input(const std::filesystem::path &i
     // clang-format on
 }
 
-namespace aoc2024::day02 {
+namespace AOC_NS(2024, 2) {
 bool is_safe(const Report &report) {
     std::int32_t prev_sign = 0;
     bool is_monotonic = true;
@@ -45,10 +45,8 @@ bool is_safe_dampened(const Report &report) {
     }
     return false;
 }
-} // namespace aoc2024::day02
-
-std::uint32_t AOC_NS(2024, 02)::p1(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe); }
-
-std::uint32_t AOC_NS(2024, 02)::p2(std::vector<Report> &input) {
-    return std::ranges::count_if(input, is_safe_dampened);
 }
+
+std::uint32_t AOC_NS(2024, 2)::p1(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe); }
+
+std::uint32_t AOC_NS(2024, 2)::p2(std::vector<Report> &input) { return std::ranges::count_if(input, is_safe_dampened); }
