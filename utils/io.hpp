@@ -14,7 +14,7 @@ std::string read_file(const std::filesystem::path &path);
 
 std::generator<std::string> iter_file_lines(const std::filesystem::path &path);
 
-template <auto P>
+template <ctll::fixed_string P>
 std::generator<const std::ranges::range_value_t<decltype(ctre::search_all<P>(std::declval<const std::string &>()))> &>
 iter_file_regex(const std::filesystem::path &path) {
     for (const std::string input = read_file(path); const auto match : ctre::search_all<P>(input))
