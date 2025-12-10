@@ -1,6 +1,7 @@
 #pragma once
 
 #include "thirdparty/hash_combine.hpp"
+#include <cmath>
 #include <type_traits>
 
 namespace utils {
@@ -15,6 +16,9 @@ struct Vec2 {
     constexpr Vec2(T x, T y)
         : x(x),
           y(y) {}
+
+    T distance_sq(const Vec2 &other) const { return (x - other.x) * (x - other.x) + (y - other.y) * (y - other.y); }
+    T distance(const Vec2 &other) const { return std::sqrt(distance_sq(other)); }
 
     bool operator==(const Vec2 &other) const = default;
 
@@ -43,6 +47,11 @@ struct Vec3 {
         : x(x),
           y(y),
           z(z) {}
+
+    T distance_sq(const Vec3 &other) const {
+        return (x - other.x) * (x - other.x) + (y - other.y) * (y - other.y) + (z - other.z) * (z - other.z);
+    }
+    T distance(const Vec3 &other) const { return std::sqrt(distance_sq(other)); }
 
     bool operator==(const Vec3 &other) const = default;
 
@@ -73,6 +82,12 @@ struct Vec4 {
           y(y),
           z(z),
           w(w) {}
+
+    T distance_sq(const Vec4 &other) const {
+        return (x - other.x) * (x - other.x) + (y - other.y) * (y - other.y) + (z - other.z) * (z - other.z) +
+               (w - other.w) * (w - other.w);
+    }
+    T distance(const Vec4 &other) const { return std::sqrt(distance_sq(other)); }
 
     bool operator==(const Vec4 &other) const = default;
 

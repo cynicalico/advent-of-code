@@ -38,6 +38,7 @@ std::map<int, std::map<int, Solution>> solution_map() {
             {5, AOC_NS(2025, 5)::solution()},
             {6, AOC_NS(2025, 6)::solution()},
             {7, AOC_NS(2025, 7)::solution()},
+            {8, AOC_NS(2025, 8)::solution()},
         }},
         //[[[end]]]
     };

@@ -54,6 +54,6 @@ std::pair<std::uint32_t, std::uint64_t> AOC_NS(2025, 7)::parse_input(const std::
     return {p1_ans, p2_ans};
 }
 
-std::uint32_t AOC_NS(2025, 7)::p1(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<0>(input); }
+std::uint32_t AOC_NS(2025, 7)::p1(std::pair<std::uint32_t, std::uint64_t> &input) { return input.first; }
 
-std::uint64_t AOC_NS(2025, 7)::p2(std::pair<std::uint32_t, std::uint64_t> &input) { return std::get<1>(input); }
+std::uint64_t AOC_NS(2025, 7)::p2(std::pair<std::uint32_t, std::uint64_t> &input) { return input.second; }

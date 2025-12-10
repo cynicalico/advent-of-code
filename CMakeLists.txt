@@ -45,6 +45,7 @@ target_sources(libaoc
         "solutions/2025/day05.cpp"
         "solutions/2025/day06.cpp"
         "solutions/2025/day07.cpp"
+        "solutions/2025/day08.cpp"
         # [[[end]]]
 
         PUBLIC

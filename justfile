@@ -2,8 +2,8 @@ set windows-shell := ["pwsh.exe", "-NoLogo", "-Command"]
 
 cog:
     cog -r CMakeLists.txt
-    cog -r src/solution_map.cpp
     cog -r solutions/prototypes.hpp
+    cog -r src/solution_map.cpp
 
 config $preset:
     cmake --preset {{ preset }}
