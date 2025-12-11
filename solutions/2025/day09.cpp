@@ -50,6 +50,7 @@ bool all_red_or_green_edges(const Grid &grid, const Pos &c1, const Pos &c2) {
 
 std::int64_t find_largest_rectangle_colored(const Grid &grid, const std::vector<Pos> &input) {
     std::int64_t max = 0;
+#pragma omp parallel for schedule(dynamic) reduction(max : max)
     for (std::size_t i = 0; i < input.size(); ++i) {
         for (std::size_t j = i + 1; j < input.size(); ++j) {
             const auto area = (std::abs(input[j].x - input[i].x) + 1) * (std::abs(input[j].y - input[i].y) + 1);

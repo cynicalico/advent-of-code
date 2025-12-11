@@ -65,7 +65,7 @@ std::uint64_t minimum_presses_p1(const Machine &m) {
 }
 
 std::uint64_t AOC_NS(2025, 10)::p1(std::vector<Machine> &input) {
-    return std::ranges::fold_left_first(input | std::views::transform(minimum_presses_p1), std::plus{}).value();
+    return *std::ranges::fold_left_first(input | std::views::transform(minimum_presses_p1), std::plus{});
 }
 
 namespace AOC_NS(2025, 10) {
@@ -98,12 +98,9 @@ std::uint64_t minimum_presses_p2(const Machine &m) {
     optimizer.minimize(sum);
     if (optimizer.check() == z3::sat) {
         const auto model = optimizer.get_model();
-        std::uint64_t result = 0;
-        for (const auto &var : vars) {
-            const auto value = model.eval(var).get_numeral_uint64();
-            result += value;
-        }
-        return result;
+        return *std::ranges::fold_left_first(
+                vars | std::views::transform([&model](const auto &v) { return model.eval(v).get_numeral_uint64(); }),
+                std::plus{});
     }
     std::unreachable();
 }
