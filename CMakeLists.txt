@@ -10,11 +10,26 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
+FetchContent_Declare(
+        z3
+        GIT_REPOSITORY https://github.com/Z3Prover/z3.git
+        GIT_TAG z3-4.15.4
+)
+FetchContent_MakeAvailable(z3)
+
+if(TARGET libz3)
+    target_include_directories(libz3 INTERFACE $<BUILD_INTERFACE:${z3_SOURCE_DIR}/src/api/c++>)
+endif()
+
+if(NOT TARGET z3::libz3)
+    add_library(z3::libz3 ALIAS libz3)
+endif()
+
 find_package(OpenMP REQUIRED)
 
 add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
-target_link_libraries(libaoc PUBLIC fmt::fmt OpenMP::OpenMP_CXX)
+target_link_libraries(libaoc PUBLIC fmt::fmt OpenMP::OpenMP_CXX z3::libz3)
 
 add_executable(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)

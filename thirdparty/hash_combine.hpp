@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <utility>
 
 // Taken from https://stackoverflow.com/a/7222201, which pulled from Boost

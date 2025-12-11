@@ -14,3 +14,4 @@
 #include "ctre.hpp"
 
 #include <omp.h>
+#include <z3++.h>
