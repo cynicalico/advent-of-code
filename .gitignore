@@ -3,6 +3,7 @@
 .build/
 bin/
 
+expected/
 input/
 puzzles/
 

@@ -5,6 +5,7 @@
 #include <chrono>
 #include <filesystem>
 #include <fmt/format.h>
+#include <fstream>
 #include <optional>
 #include <string>
 #include <tuple>
@@ -87,8 +88,30 @@ void run_solutions(const std::vector<std::tuple<int, int, Solution, std::filesys
             total_elapsed += elapsed;
             const auto elapsed_ns = duration_cast<nanoseconds>(elapsed);
 
-            fmt::print("  Part 1: {}\n", part1);
-            fmt::print("  Part 2: {}\n", part2);
+            std::optional<std::string> part1_expected = std::nullopt;
+            std::optional<std::string> part2_expected = std::nullopt;
+            const auto expected_path = fmt::format("expected/{}/day{:02}.txt", year, day);
+            if (std::filesystem::exists(expected_path)) {
+                std::ifstream ifs(expected_path);
+                std::string line;
+                if (std::getline(ifs, line)) { part1_expected = line; }
+                if (std::getline(ifs, line)) { part2_expected = line; }
+            }
+
+            fmt::print("  Part 1: {}", part1);
+            if (part1_expected) {
+                if (part1 == part1_expected.value()) fmt::print(" ✓");
+                else fmt::print(" ✗ ({})", part1_expected.value());
+            }
+            fmt::print("\n");
+
+            fmt::print("  Part 2: {}", part2);
+            if (part2_expected) {
+                if (part2 == part2_expected.value()) fmt::print(" ✓");
+                else fmt::print(" ✗ ({})", part2_expected.value());
+            }
+            fmt::print("\n");
+
             fmt::print("Took {:.06f}s\n", static_cast<double>(elapsed_ns.count()) / 1e9);
 
         } catch (const std::exception &e) { fmt::print(stderr, "Error: {}\n\n", e.what()); }

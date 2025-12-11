@@ -1,19 +1,18 @@
 cmake_minimum_required(VERSION 3.21)
 project(libaoc LANGUAGES CXX)
 
-add_library(libaoc)
-add_library(libaoc::libaoc ALIAS libaoc)
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-
 foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
 endforeach()
+
+add_library(libaoc)
+add_library(libaoc::libaoc ALIAS libaoc)
 
 include(FetchContent)
 
@@ -30,11 +29,9 @@ FetchContent_Declare(
         GIT_TAG z3-4.15.4
 )
 FetchContent_MakeAvailable(z3)
-
 if(TARGET libz3)
     target_include_directories(libz3 INTERFACE $<BUILD_INTERFACE:${z3_SOURCE_DIR}/src/api/c++>)
 endif()
-
 if(NOT TARGET z3::libz3)
     add_library(z3::libz3 ALIAS libz3)
 endif()
@@ -50,12 +47,14 @@ if(MSVC)
 endif()
 target_link_libraries(libaoc PUBLIC fmt::fmt OpenMP::OpenMP_CXX z3::libz3)
 
-target_compile_definitions(libaoc PRIVATE LIBAOC_EXPORTS)
-if(NOT WIN32)
-    set_target_properties(libaoc PROPERTIES
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(libaoc PRIVATE LIBAOC_EXPORTS)
+    if(NOT WIN32)
+        set_target_properties(libaoc PROPERTIES
         CXX_VISIBILITY_PRESET hidden
         VISIBILITY_INLINES_HIDDEN ON
     )
+    endif()
 endif()
 
 add_executable(aoc)
