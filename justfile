@@ -8,6 +8,11 @@ cog:
 config $preset: cog
     cmake --preset {{ preset }}
 
+[windows]
+build $preset:
+    cmake --build --preset {{ preset }} --parallel 4
+
+[linux]
 build $preset:
     cmake --build --preset {{ preset }}
 

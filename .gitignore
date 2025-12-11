@@ -1,9 +1,12 @@
 .idea/
 
 .build/
+bin/
 
 input/
 puzzles/
 
 .env
 .throttle.timestamp
+
+CMakeUserPresets.json

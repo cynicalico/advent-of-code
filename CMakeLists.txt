@@ -1,5 +1,19 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 project(libaoc LANGUAGES CXX)
+
+add_library(libaoc)
+add_library(libaoc::libaoc ALIAS libaoc)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
+endforeach()
 
 include(FetchContent)
 
@@ -26,14 +40,37 @@ if(NOT TARGET z3::libz3)
 endif()
 
 find_package(OpenMP REQUIRED)
+if(MSVC)
+    target_compile_options(libaoc PRIVATE "/openmp:llvm /openmp:experimental")
+endif()
 
-add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
+if(MSVC)
+    target_compile_options(libaoc PRIVATE "-Wno-c++98-compat")
+endif()
 target_link_libraries(libaoc PUBLIC fmt::fmt OpenMP::OpenMP_CXX z3::libz3)
+
+target_compile_definitions(libaoc PRIVATE LIBAOC_EXPORTS)
+if(NOT WIN32)
+    set_target_properties(libaoc PROPERTIES
+        CXX_VISIBILITY_PRESET hidden
+        VISIBILITY_INLINES_HIDDEN ON
+    )
+endif()
 
 add_executable(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)
-target_link_libraries(aoc PRIVATE libaoc)
+target_link_libraries(aoc PRIVATE libaoc::libaoc)
+
+if(WIN32)
+    add_custom_command(TARGET aoc POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:aoc>
+        $<TARGET_FILE_DIR:aoc>
+        COMMAND_EXPAND_LISTS
+        COMMENT "Copying runtime DLLs to output directory"
+    )
+endif()
 
 ##################################################
 # EVERYTHING BELOW HERE IS GLOBBED AUTOMATICALLY #
@@ -82,6 +119,7 @@ target_sources(libaoc
         #         if f.endswith(".hpp"):
         #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
+        "solutions/export_macro.hpp"
         "solutions/prototype_macro.hpp"
         "solutions/prototypes.hpp"
         # [[[end]]]

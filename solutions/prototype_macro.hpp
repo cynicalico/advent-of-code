@@ -1,5 +1,7 @@
 #pragma once
 
+#include "solutions/export_macro.hpp"
+
 #include <fmt/format.h>
 
 #include <filesystem>
@@ -15,7 +17,7 @@ using Solution = std::function<std::tuple<std::string, std::string>(const std::f
 
 #define SOLUTION_PROTOTYPE(yyyy, dd) \
     namespace AOC_NS(yyyy, dd) {     \
-    Solution solution();             \
+    LIBAOC_API Solution solution();  \
     }
 
 #define SOLUTION(yyyy, dd, parse_result_t, p1_ans_t, p2_ans_t)                                       \
