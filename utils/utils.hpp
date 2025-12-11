@@ -12,3 +12,5 @@
 #include "utils/vec.hpp"
 
 #include "ctre.hpp"
+
+#include <omp.h>

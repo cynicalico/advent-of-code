@@ -10,11 +10,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(fmt)
 
-set(CMAKE_CXX_STANDARD 23)
+find_package(OpenMP REQUIRED)
 
 add_library(libaoc)
 target_compile_features(libaoc PRIVATE cxx_std_23)
-target_link_libraries(libaoc PUBLIC fmt::fmt)
+target_link_libraries(libaoc PUBLIC fmt::fmt OpenMP::OpenMP_CXX)
 
 add_executable(aoc)
 target_compile_features(aoc PRIVATE cxx_std_23)

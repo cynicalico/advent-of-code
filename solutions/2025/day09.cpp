@@ -67,16 +67,17 @@ std::int64_t AOC_NS(2025, 9)::p2(std::vector<Pos> &input) {
 
     // Populate the red tiles + edges between them
     input.emplace_back(input[0]);
+#pragma omp parallel for
     for (const auto &[from, to] : input | std::views::adjacent<2>) {
         const auto [l, r, t, b] = lrtb(from, to);
         for (std::size_t y = t; y <= b; ++y)
             for (std::size_t x = l; x <= r; ++x) grid[Pos(x, y)] = 'X';
         grid[from] = '#';
-        grid[to] = '#';
     }
     input.pop_back();
 
-    // Fill the interior of the shape with green tiles
+// Fill the interior of the shape with green tiles
+#pragma omp parallel for
     for (std::size_t y = 0; y < grid.height(); ++y) {
         bool inside = false;
         for (std::size_t x = 0; x < grid.width(); ++x) {
