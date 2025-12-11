@@ -11,6 +11,8 @@ foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin)
 endforeach()
 
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+
 add_library(libaoc)
 add_library(libaoc::libaoc ALIAS libaoc)
 
