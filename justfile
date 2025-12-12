@@ -5,19 +5,29 @@ cog:
     cog -r solutions/prototypes.hpp
     cog -r src/solution_map.cpp
 
-config $preset: cog
+config preset: cog
     cmake --preset {{ preset }}
 
 [windows]
-build $preset:
-    cmake --build --preset {{ preset }} --parallel 4
+build preset cores="4":
+    cmake --build --preset {{ preset }} --parallel {{ cores }}
 
 [linux]
-build $preset:
-    cmake --build --preset {{ preset }}
+build preset cores="4":
+    cmake --build --preset {{ preset }} -j {{ cores }}
 
-clean $preset:
-    cmake --build --preset {{ preset }} --target clean
+[windows]
+reset-cache:
+    rm ./.build/CMakeCache.txt
+    rm -Force -Recurse ./.build/CMakeFiles
+
+[linux]
+reset-cache:
+    rm ./.build/CMakeCache.txt
+    rm -rf ./.build/CMakeFiles
+
+clean:
+    cmake --build ./.build/ --target clean
 
 [windows]
 purge:

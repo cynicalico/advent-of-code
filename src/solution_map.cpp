@@ -26,6 +26,9 @@ std::map<int, std::map<int, Solution>> solution_map() {
                     cog.outl(f"    {{{int(day)}, AOC_NS({int(year)}, {int(day)})::solution()}},")
                 cog.outl("}},")
         ]]]*/
+        {2015, {
+            {1, AOC_NS(2015, 1)::solution()},
+        }},
         {2024, {
             {1, AOC_NS(2024, 1)::solution()},
             {2, AOC_NS(2024, 2)::solution()},

@@ -25,6 +25,8 @@ for root, dirs, files in os.walk("solutions", topdown=True):
         for day in sorted(days):
             cog.outl(f"SOLUTION_PROTOTYPE({int(year)}, {int(day)})")
 ]]]*/
+SOLUTION_PROTOTYPE(2015, 1)
+
 SOLUTION_PROTOTYPE(2024, 1)
 SOLUTION_PROTOTYPE(2024, 2)
 
