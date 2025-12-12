@@ -32,7 +32,9 @@ clean:
 [windows]
 purge:
     rm -Force -Recurse .build
+    rm -Force -Recurse bin
 
 [linux]
 purge:
     rm -rf .build
+    rm -rf bin

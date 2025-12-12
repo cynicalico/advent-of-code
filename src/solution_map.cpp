@@ -29,6 +29,7 @@ std::map<int, std::map<int, Solution>> solution_map() {
         {2015, {
             {1, AOC_NS(2015, 1)::solution()},
             {2, AOC_NS(2015, 2)::solution()},
+            {4, AOC_NS(2015, 4)::solution()},
         }},
         {2024, {
             {1, AOC_NS(2024, 1)::solution()},

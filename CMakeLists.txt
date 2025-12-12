@@ -93,6 +93,7 @@ target_sources(libaoc
         # ]]]
         "solutions/2015/day01.cpp"
         "solutions/2015/day02.cpp"
+        "solutions/2015/day04.cpp"
         "solutions/2024/day01.cpp"
         "solutions/2024/day02.cpp"
         "solutions/2025/day01.cpp"
@@ -139,7 +140,9 @@ target_sources(libaoc
         #         if f.endswith(".cpp"):
         #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
+        "utils/hashing.cpp"
         "utils/io.cpp"
+        "utils/sops.cpp"
         "utils/split.cpp"
         # [[[end]]]
 
@@ -158,12 +161,14 @@ target_sources(libaoc
         #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "utils/grid.hpp"
+        "utils/hashing.hpp"
         "utils/io.hpp"
         "utils/math.hpp"
         "utils/parse.hpp"
         "utils/print.hpp"
         "utils/priority_queue.hpp"
         "utils/sequence.hpp"
+        "utils/sops.hpp"
         "utils/split.hpp"
         "utils/std.hpp"
         "utils/utils.hpp"
