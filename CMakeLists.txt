@@ -92,6 +92,7 @@ target_sources(libaoc
         #             cog.outl(f"\"{Path(os.path.join(root, f)).as_posix()}\"")
         # ]]]
         "solutions/2015/day01.cpp"
+        "solutions/2015/day02.cpp"
         "solutions/2024/day01.cpp"
         "solutions/2024/day02.cpp"
         "solutions/2025/day01.cpp"
